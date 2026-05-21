@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">DIVYA SHLOKK</a>
+            <div class="nav-links">
+                <a href="web-dev.html" class="nav-link active">Web Development</a>
+                <a href="creative.html" class="nav-link">Creative Direction</a>
+                <a href="video.html" class="nav-link">Video Editing</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-container">
+        <div class="page-header">
+            <h1 class="page-title">Web Development</h1>
+            <p class="page-subtitle">Building modern, responsive websites with VibeCoding & WordPress</p>
+        </div>
+
+        <div class="projects-container">
+            <!-- Website Preview Modal -->
+            <div class="preview-modal" id="previewModal">
+                <div class="preview-content">
+                    <button class="preview-close" onclick="closePreview()">&times;</button>
+                    <div class="preview-header">
+                        <h3 id="previewTitle">Website Preview</h3>
+                        <a id="previewLink" href="#" target="_blank" class="preview-visit">Visit Site →</a>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe id="previewIframe" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Website Buttons -->
+            <div class="websites-grid">
+                <div class="website-card" data-url="https://syranmanagement.com" data-name="Syran Management">
+                    <div class="website-icon">
+                        <span class="icon-text">SM</span>
+                    </div>
+                    <div class="website-info">
+                        <h3>Syran Management</h3>
+                        <p>syranmanagement.com</p>
+                    </div>
+                    <button class="preview-btn" onclick="openPreview('https://syranmanagement.com', 'Syran Management')">
+                        Preview
+                    </button>
+                </div>
+
+                <div class="website-card" data-url="https://preliteestate.in/" data-name="Prelite Estate">
+                    <div class="website-icon">
+                        <span class="icon-text">PE</span>
+                    </div>
+                    <div class="website-info">
+                        <h3>Prelite Estate</h3>
+                        <p>preliteestate.in</p>
+                    </div>
+                    <button class="preview-btn" onclick="openPreview('https://preliteestate.in/', 'Prelite Estate')">
+                        Preview
+                    </button>
+                </div>
+
+                <div class="website-card" data-url="https://astropholic.in" data-name="Astropholic">
+                    <div class="website-icon">
+                        <span class="icon-text">AS</span>
+                    </div>
+                    <div class="website-info">
+                        <h3>Astropholic</h3>
+                        <p>astropholic.in</p>
+                    </div>
+                    <button class="preview-btn" onclick="openPreview('https://astropholic.in', 'Astropholic')">
+                        Preview
+                    </button>
+                </div>
+
+                <div class="website-card" data-url="https://www.aerovisioncollege.com/" data-name="Aerovision College">
+                    <div class="website-icon">
+                        <span class="icon-text">AC</span>
+                    </div>
+                    <div class="website-info">
+                        <h3>Aerovision College</h3>
+                        <p>aerovisioncollege.com</p>
+                    </div>
+                    <button class="preview-btn" onclick="openPreview('https://www.aerovisioncollege.com/', 'Aerovision College')">
+                        Preview
+                    </button>
+                </div>
+
+                <div class="website-card" data-url="https://privatesafe.in" data-name="Private Safe">
+                    <div class="website-icon">
+                        <span class="icon-text">PS</span>
+                    </div>
+                    <div class="website-info">
+                        <h3>Private Safe</h3>
+                        <p>privatesafe.in</p>
+                    </div>
+                    <button class="preview-btn" onclick="openPreview('https://privatesafe.in', 'Private Safe')">
+                        Preview
+                    </button>
+                </div>
+            </div>
+
+            <div class="tech-stack">
+                <h2>Technologies & Tools</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag">VibeCoding</span>
+                    <span class="tech-tag">WordPress</span>
+                    <span class="tech-tag">HTML/CSS</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Responsive Design</span>
+                    <span class="tech-tag">SEO Optimization</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function openPreview(url, name) {
+            const modal = document.getElementById('previewModal');
+            const iframe = document.getElementById('previewIframe');
+            const title = document.getElementById('previewTitle');
+            const link = document.getElementById('previewLink');
+            
+            title.textContent = name;
+            link.href = url;
+            iframe.src = url;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePreview() {
+            const modal = document.getElementById('previewModal');
+            const iframe = document.getElementById('previewIframe');
+            
+            modal.classList.remove('active');
+            iframe.src = '';
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closePreview();
+            }
+        });
+
+        // Close modal on background click
+        document.getElementById('previewModal').addEventListener('click', (e) => {
+            if (e.target.id === 'previewModal') {
+                closePreview();
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

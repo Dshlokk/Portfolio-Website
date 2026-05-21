@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Editing Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">DIVYA SHLOKK</a>
+            <div class="nav-links">
+                <a href="web-dev.html" class="nav-link">Web Development</a>
+                <a href="creative.html" class="nav-link">Creative Direction</a>
+                <a href="video.html" class="nav-link active">Video Editing</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-container video-page">
+        <div class="page-header">
+            <h1 class="page-title">Video Editing</h1>
+            <p class="page-subtitle">Transforming raw footage into compelling visual stories</p>
+        </div>
+
+        <div class="video-portfolio-container">
+            <div class="portfolio-showcase">
+                <div class="showcase-header">
+                    <div class="header-content">
+                        <h2>My Editing Portfolio</h2>
+                        <p>Explore my collection of video editing work, showcasing expertise in storytelling, pacing, color grading, and post-production excellence.</p>
+                    </div>
+                    <a href="https://divyashlokk.my.canva.site/" target="_blank" class="external-link-btn">
+                        View Full Portfolio
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="portfolio-embed">
+                    <div class="embed-wrapper">
+                        <iframe 
+                            src="https://divyashlokk.my.canva.site/" 
+                            frameborder="0" 
+                            allowfullscreen
+                            class="portfolio-iframe">
+                        </iframe>
+                    </div>
+                    <div class="embed-overlay">
+                        <button onclick="removeOverlay()" class="interact-btn">
+                            Click to Interact with Portfolio
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="editing-capabilities">
+                <h3>Editing Capabilities</h3>
+                <div class="capabilities-grid">
+                    <div class="capability-card">
+                        <div class="capability-icon">✂️</div>
+                        <h4>Narrative Editing</h4>
+                        <p>Crafting compelling stories through precise cuts and seamless transitions</p>
+                    </div>
+                    <div class="capability-card">
+                        <div class="capability-icon">🎨</div>
+                        <h4>Color Grading</h4>
+                        <p>Enhancing visual aesthetics with professional color correction and grading</p>
+                    </div>
+                    <div class="capability-card">
+                        <div class="capability-icon">🔊</div>
+                        <h4>Audio Design</h4>
+                        <p>Balancing sound, music, and effects for immersive experiences</p>
+                    </div>
+                    <div class="capability-card">
+                        <div class="capability-icon">⚡</div>
+                        <h4>Motion Graphics</h4>
+                        <p>Adding dynamic text, titles, and visual effects</p>
+                    </div>
+                    <div class="capability-card">
+                        <div class="capability-icon">🎬</div>
+                        <h4>Post Production</h4>
+                        <p>Complete workflow from raw footage to final delivery</p>
+                    </div>
+                    <div class="capability-card">
+                        <div class="capability-icon">🎯</div>
+                        <h4>Pacing & Rhythm</h4>
+                        <p>Mastering timing to maintain audience engagement</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="software-tools">
+                <h3>Software & Tools</h3>
+                <div class="tools-grid">
+                    <div class="tool-badge">Adobe Premiere Pro</div>
+                    <div class="tool-badge">Final Cut Pro</div>
+                    <div class="tool-badge">DaVinci Resolve</div>
+                    <div class="tool-badge">After Effects</div>
+                    <div class="tool-badge">Audition</div>
+                    <div class="tool-badge">Media Encoder</div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h3>Interested in collaborating?</h3>
+                <p>Let's create something amazing together</p>
+                <a href="https://divyashlokk.my.canva.site/" target="_blank" class="cta-button-large">
+                    View Complete Portfolio
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function removeOverlay() {
+            const overlay = document.querySelector('.embed-overlay');
+            overlay.style.opacity = '0';
+            overlay.style.pointerEvents = 'none';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 300);
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
