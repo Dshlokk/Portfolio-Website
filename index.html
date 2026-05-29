@@ -9,39 +9,31 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
+    <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="stylesheet" href="styles.css">
-
-    <style>
-        /* Fallback critical styles if styles.css is missing */
-        body {
-            margin: 0;
-            font-family: 'Work Sans', sans-serif;
-            background: #0f0f0f;
-            color: #ffffff;
-        }
-
-        .profile-image {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-    </style>
 </head>
 
 <body>
+
+    <!-- CAMERA UI -->
+    <div class="camera-ui">
+        <div class="rec-indicator">
+            <span class="rec-dot"></span>
+            REC
+        </div>
+        <div class="camera-frame top-left"></div>
+        <div class="camera-frame top-right"></div>
+        <div class="camera-frame bottom-left"></div>
+        <div class="camera-frame bottom-right"></div>
+    </div>
 
     <!-- NAV -->
     <nav class="nav">
         <div class="nav-content">
             <a href="index.html" class="nav-logo">DIVYA SHLOKK</a>
+            <button class="nav-toggle" aria-label="Toggle Navigation">
+                <span class="hamburger"></span>
+            </button>
             <div class="nav-links">
                 <a href="web-dev.html" class="nav-link">Web Development</a>
                 <a href="creative.html" class="nav-link">Creative Direction</a>

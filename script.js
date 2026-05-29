@@ -1,3 +1,87 @@
+// Mobile Navigation Toggle
+document.addEventListener('DOMContentLoaded', () => {
+    // Inject Custom Cursor & Flash Effect
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    cursor.innerHTML = '<div class="cursor-viewfinder"></div><div class="cursor-dot"></div>';
+    document.body.appendChild(cursor);
+
+    const flash = document.createElement('div');
+    flash.className = 'flash-effect';
+    document.body.appendChild(flash);
+
+    // Mouse Move - Camera Cursor & Perspective Parallax
+    document.addEventListener('mousemove', (e) => {
+        const x = e.clientX;
+        const y = e.clientY;
+        
+        // Cursor movement
+        cursor.style.transform = `translate(${x - 20}px, ${y - 20}px)`;
+
+        // Perspective Parallax (Flashy effect)
+        const moveX = (window.innerWidth / 2 - x) / 50;
+        const moveY = (window.innerHeight / 2 - y) / 50;
+        
+        document.body.style.backgroundPosition = `${moveX}px ${moveY}px`;
+    });
+
+    // Camera Flash Effect on Click
+    document.addEventListener('mousedown', (e) => {
+        if (e.target.closest('button, a, .skill-card, .website-card')) {
+            flash.classList.remove('flash-active');
+            void flash.offsetWidth; // Trigger reflow
+            flash.classList.add('flash-active');
+        }
+        cursor.style.transform += ' scale(0.8)';
+    });
+
+    document.addEventListener('mouseup', () => {
+        cursor.style.transform = cursor.style.transform.replace(' scale(0.8)', '');
+    });
+
+    // Hover Scaling for Cursor
+    const interactiveElements = document.querySelectorAll('button, a, .skill-card, .website-card');
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.width = '60px';
+            cursor.style.height = '60px';
+            cursor.style.transition = 'width 0.3s, height 0.3s, transform 0.1s';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.width = '40px';
+            cursor.style.height = '40px';
+        });
+    });
+
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const body = document.body;
+
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            
+            // Prevent scrolling when menu is open
+            if (navLinks.classList.contains('active')) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = '';
+            }
+        });
+
+        // Close menu when a link is clicked
+        const links = navLinks.querySelectorAll('.nav-link');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                body.style.overflow = '';
+            });
+        });
+    }
+});
+
 // Smooth scroll behavior
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -60,15 +144,6 @@ window.addEventListener('scroll', () => {
         const speed = 0.5;
         el.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
     });
-});
-
-// Custom cursor effect (optional enhancement)
-document.addEventListener('mousemove', (e) => {
-    const cursor = document.querySelector('.custom-cursor');
-    if (cursor) {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    }
 });
 
 // Add hover effect to buttons
