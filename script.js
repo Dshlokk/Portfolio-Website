@@ -267,34 +267,31 @@ document.addEventListener('DOMContentLoaded', () => {
         return id;
     }
 
-    // Simulated Gemini AI Persona (Trained on @d.shlokk Instagram)
+    // Simulated Gemini AI Persona - DIVYA SHLOKK (AI/ML & UX Developer)
     function generateAIResponse(input) {
-        const lowerInput = input.toLowerCase();
+        const query = input.toLowerCase();
         
-        if (lowerInput.includes('hi') || lowerInput.includes('hello') || lowerInput.includes('hey')) {
-            return "Yo! I'm Divya's digital twin. ⚡️ I'm here to help you navigate through the work, the vibes, and everything in between. What's up?";
-        }
-        
-        if (lowerInput.includes('project') || lowerInput.includes('work') || lowerInput.includes('hire') || lowerInput.includes('price') || lowerInput.includes('rate')) {
-            return "Straight to the point, I love it! 🚀 For projects and collaborations, Divya usually hops on a quick call to see if the vibe matches. You should definitely reach out on Instagram or WhatsApp. <br><br>IG: <a href='https://www.instagram.com/d.shlokk/' target='_blank' class='ai-chat-link'>@d.shlokk</a><br>WA: <a href='https://wa.me/918660438751' target='_blank' class='ai-chat-link'>Send a message</a>";
-        }
-
-        if (lowerInput.includes('instagram') || lowerInput.includes('ig') || lowerInput.includes('social')) {
-            return "Instagram is where the magic happens. 📸 He posts a lot of behind-the-scenes, his latest edits, and sometimes just random creative experiments. Go follow him: <a href='https://www.instagram.com/d.shlokk/' target='_blank' class='ai-chat-link'>@d.shlokk</a>.";
+        // Greeting / Identity
+        if (query.includes('hi') || query.includes('hello') || query.includes('who are you') || query.includes('hey')) {
+            return "Systems online. I'm Divya Shlokk's digital twin. I specialize in AI/ML, professional UX, and Data Science. How can I assist with your technical or creative requirements today?";
         }
         
-        if (lowerInput.includes('skills') || lowerInput.includes('do') || lowerInput.includes('tech') || lowerInput.includes('expert')) {
-            return "He's basically a three-headed dragon: <br>1️⃣ **Web Dev:** He calls it 'VibeCoding'—building sites that don't just work, but feel right. <br>2️⃣ **Creative Direction:** Leading shows and visual storytelling. <br>3️⃣ **Video Editing:** High-energy, cinematic stuff. <br><br>Which one are you interested in?";
+        // Projects & Experience
+        if (query.includes('project') || query.includes('work') || query.includes('experience') || query.includes('navodaya') || query.includes('ad makers') || query.includes('ecoma')) {
+            return "I'm currently architecting 'Ad Makers' (marketing agency infrastructure) and directing visual narratives for 'Navodaya 2026'. My recent focus includes Meta-OpenEnv research and 'Ecoma' marketing design. I bridge high-level Engineering (AI/ML) with precision UX. Which specific vertical would you like to discuss?";
         }
 
-        if (lowerInput.includes('who') || lowerInput.includes('divya')) {
-            return "Divya is a multi-disciplinary creative based in India. He's all about that techy creative vibe—blending code with art. He's been directing shows, building web experiences, and editing content that stops the scroll.";
+        // Skills & Technical Stack
+        if (query.includes('skill') || query.includes('stack') || query.includes('tech') || query.includes('do you do')) {
+            return "My stack is optimized for performance and aesthetic impact: Python (AI/ML), Data Science pipelines, and Full-stack Web Development (React/WordPress). I focus on 'VibeCoding'—where engineering precision meets high-end design. For a deep dive into my codebase or design systems, let's connect.";
+        }
+        
+        // Contact / Collaboration / Technical Limit
+        if (query.includes('contact') || query.includes('hire') || query.includes('price') || query.includes('reach') || query.includes('instagram') || query.includes('talk') || query.includes('connect')) {
+            return "For high-bandwidth collaboration, technical inquiries, or to view my latest creative output, let's move the conversation forward. <br><br>[🔗 Connect with Divya on Instagram](https://www.instagram.com/d.shlokk/)";
         }
 
-        if (lowerInput.includes('vibe') || lowerInput.includes('vibecoding')) {
-            return "VibeCoding is all about the feel. 🌊 It's not just about clean code; it's about the animations, the gradients, and the overall 'techy' energy that makes a site feel alive. Like this one!";
-        }
-
-        return "That's a cool question! I'm still absorbing Divya's creative DNA from his feed, but for a real-deal answer, you should just DM him: <a href='https://www.instagram.com/d.shlokk/' target='_blank' class='ai-chat-link'>@d.shlokk</a>. He's usually pretty quick to respond!";
+        // Fallback for technical limits or complex queries
+        return "Insightful query. To discuss this further and explore how I can bring engineering precision to your next project, let's connect directly. <br><br>[🔗 Connect with Divya on Instagram](https://www.instagram.com/d.shlokk/)";
     }
 });
