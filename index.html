@@ -129,36 +129,38 @@
     <!-- AI CHAT BOT UI -->
     <div class="ai-chat-container">
         <button class="ai-chat-btn" aria-label="Chat with Divya's AI Assistant">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sparkle-icon"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sparkle-icon"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
         </button>
 
         <div class="ai-chat-window" id="aiChatWindow">
             <div class="ai-chat-header">
                 <div class="ai-header-info">
-                    <div class="bot-avatar">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"></path><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg>
-                    </div>
-                    <div>
-                        <h4>Divya's Assistant</h4>
-                        <span class="ai-header-status">Online</span>
-                    </div>
+                    <div class="status-dot"></div>
+                    <h4>Divya's Assistant</h4>
                 </div>
                 <button class="ai-close-btn" id="aiCloseBtn">&times;</button>
             </div>
             
             <div class="ai-chat-body" id="aiChatBody">
+                <div class="ai-quick-actions">
+                    <button class="pill-btn" onclick="handleQuickAction('View Projects')">View Projects</button>
+                    <button class="pill-btn" onclick="handleQuickAction('Contact Me')">Contact Me</button>
+                    <button class="pill-btn" onclick="handleQuickAction('Design Philosophy')">Design Philosophy</button>
+                </div>
                 <div class="ai-message bot">
                     <div class="msg-content">
-                        Hey! I'm Divya's AI Assistant. I learn from his Instagram to chat just like him. How can I help you today?
+                        Hey! I'm Divya Shlokk's assistant. How can I help you with your technical or creative projects today?
                     </div>
                 </div>
             </div>
 
             <div class="ai-chat-footer">
-                <input type="text" id="aiChatInput" placeholder="Ask about projects, rates, or connect..." autocomplete="off">
-                <button id="aiChatSend" aria-label="Send Message">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                </button>
+                <div class="ai-chat-input-wrapper">
+                    <input type="text" id="aiChatInput" placeholder="Message..." autocomplete="off">
+                    <button class="ai-send-btn" id="aiChatSend" aria-label="Send Message">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

@@ -233,6 +233,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') sendMessage();
     });
 
+    // Handle Quick Action Pill Buttons
+    window.handleQuickAction = function(action) {
+        appendMessage(action, 'user');
+        const typingId = showTypingIndicator();
+        setTimeout(() => {
+            const indicator = document.getElementById(typingId);
+            if (indicator) indicator.remove();
+            const response = generateAIResponse(action);
+            appendMessage(response, 'bot');
+        }, 1000 + Math.random() * 500);
+    };
+
     function appendMessage(text, sender) {
         const msgDiv = document.createElement('div');
         msgDiv.className = `ai-message ${sender}`;
@@ -271,6 +283,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function generateAIResponse(input) {
         const query = input.toLowerCase();
         
+        // Quick Action: View Projects
+        if (query === 'view projects') {
+            return "I have engineered several high-impact platforms including 'Ad Makers', 'Navodaya 2026', and 'Ecoma'. You can explore the full showcase in the 'Web Development' section of this site.";
+        }
+
+        // Quick Action: Contact Me
+        if (query === 'contact me' || query.includes('contact') || query.includes('hire') || query.includes('reach')) {
+            return "For technical inquiries or creative collaborations, let's move the conversation forward. <br><br>[🔗 Connect with Divya on Instagram](https://www.instagram.com/d.shlokk/)";
+        }
+
+        // Quick Action: Design Philosophy
+        if (query === 'design philosophy' || query.includes('philosophy') || query.includes('vibe')) {
+            return "My philosophy is 'VibeCoding'—a synthesis of high-level engineering precision (AI/ML) and minimalist, emotive UX. I build systems that don't just solve problems, but provide a premium experience.";
+        }
+
         // Greeting / Identity
         if (query.includes('hi') || query.includes('hello') || query.includes('who are you') || query.includes('hey')) {
             return "Systems online. I'm Divya Shlokk's digital twin. I specialize in AI/ML, professional UX, and Data Science. How can I assist with your technical or creative requirements today?";
