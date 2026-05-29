@@ -818,9 +818,15 @@ body::before {
     font-size: 1rem;
 }
 
-.preview-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5);
+.preview-btn, .preview-close, .preview-visit {
+    cursor: none !important;
+}
+
+.preview-btn.external {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 /* Preview Modal */

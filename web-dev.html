@@ -62,7 +62,7 @@
                     <button class="preview-close" onclick="closePreview()">&times;</button>
                     <div class="preview-header">
                         <h3 id="previewTitle">Website Preview</h3>
-                        <a id="previewLink" href="#" target="_blank" class="preview-visit">Visit Site →</a>
+                        <a id="previewLink" href="" target="_blank" class="preview-visit" rel="noopener noreferrer">Visit Site ↗</a>
                     </div>
                     <div class="iframe-container">
                         <iframe id="previewIframe" frameborder="0"></iframe>
@@ -158,9 +158,9 @@
                         <h3>Hustle Her Flipbook</h3>
                         <p>hustle-her-flipbook.vercel.app</p>
                     </div>
-                    <button class="preview-btn" onclick="openPreview('https://hustle-her-flipbook.vercel.app/', 'Hustle Her Flipbook')">
-                        Preview
-                    </button>
+                    <a href="https://hustle-her-flipbook.vercel.app/" target="_blank" class="preview-btn external" style="text-decoration: none; text-align: center; display: block;">
+                        View Site
+                    </a>
                 </div>
             </div>
 
@@ -187,7 +187,12 @@
             
             title.textContent = name;
             link.href = url;
+            
+            // For sites that might have frame-busting, we set the sandbox attribute
+            // but we allow common features. 
+            iframe.removeAttribute('sandbox'); // Reset
             iframe.src = url;
+            
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -197,7 +202,7 @@
             const iframe = document.getElementById('previewIframe');
             
             modal.classList.remove('active');
-            iframe.src = '';
+            iframe.src = 'about:blank'; // Clear src to stop any audio/video
             document.body.style.overflow = '';
         }
 
@@ -208,11 +213,16 @@
             }
         });
 
-        // Close modal on background click
+        // Close modal on background click (but not on content click)
         document.getElementById('previewModal').addEventListener('click', (e) => {
             if (e.target.id === 'previewModal') {
                 closePreview();
             }
+        });
+        
+        // Ensure Visit Site link works and doesn't close modal
+        document.getElementById('previewLink').addEventListener('click', (e) => {
+            e.stopPropagation();
         });
     </script>
     <script src="script.js"></script>
