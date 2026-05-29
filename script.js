@@ -181,25 +181,103 @@ document.querySelectorAll('button, .cta-button, .preview-btn').forEach(button =>
     });
 });
 
-// Lazy load iframes
-const lazyIframes = document.querySelectorAll('iframe[data-src]');
-const iframeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const iframe = entry.target;
-            iframe.src = iframe.dataset.src;
-            iframeObserver.unobserve(iframe);
+// --- AI Chat Assistant Logic ---
+document.addEventListener('DOMContentLoaded', () => {
+    const chatBtn = document.querySelector('.ai-chat-btn');
+    const chatWindow = document.getElementById('aiChatWindow');
+    const closeBtn = document.getElementById('aiCloseBtn');
+    const chatInput = document.getElementById('aiChatInput');
+    const chatSendBtn = document.getElementById('aiChatSend');
+    const chatBody = document.getElementById('aiChatBody');
+
+    if (!chatBtn || !chatWindow) return;
+
+    // Toggle Chat Window
+    chatBtn.addEventListener('click', () => {
+        chatWindow.classList.toggle('active');
+        if (chatWindow.classList.contains('active')) {
+            chatInput.focus();
         }
     });
+
+    closeBtn.addEventListener('click', () => {
+        chatWindow.classList.remove('active');
+    });
+
+    // Handle Sending Messages
+    function sendMessage() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+
+        // Add User Message
+        appendMessage(text, 'user');
+        chatInput.value = '';
+
+        // Show Typing Indicator
+        const typingId = showTypingIndicator();
+
+        // Simulate AI Processing (Powered by Gemini Concept)
+        setTimeout(() => {
+            document.getElementById(typingId).remove();
+            const response = generateAIResponse(text);
+            appendMessage(response, 'bot');
+        }, 1500 + Math.random() * 1000);
+    }
+
+    chatSendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+
+    function appendMessage(text, sender) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `ai-message ${sender}`;
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'msg-content';
+        contentDiv.innerHTML = text; // allow HTML for links
+        
+        msgDiv.appendChild(contentDiv);
+        chatBody.appendChild(msgDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+        const id = 'typing-' + Date.now();
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'ai-message bot';
+        msgDiv.id = id;
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'msg-content typing-indicator';
+        contentDiv.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+        
+        msgDiv.appendChild(contentDiv);
+        chatBody.appendChild(msgDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+        return id;
+    }
+
+    // Simulated Gemini AI Persona (Trained on @d.shlokk Instagram)
+    function generateAIResponse(input) {
+        const lowerInput = input.toLowerCase();
+        
+        if (lowerInput.includes('hi') || lowerInput.includes('hello') || lowerInput.includes('hey')) {
+            return "Hey there! I'm Divya's AI. I vibe-code and edit videos. What's on your mind?";
+        }
+        
+        if (lowerInput.includes('project') || lowerInput.includes('work') || lowerInput.includes('hire') || lowerInput.includes('price') || lowerInput.includes('rate')) {
+            return "Sounds like a sick project! To get the best vibe and exact details, you should talk to Divya directly. <br><br>Hit him up on IG here: <a href='https://www.instagram.com/d.shlokk/' target='_blank' class='ai-chat-link'>@d.shlokk</a> 🚀";
+        }
+
+        if (lowerInput.includes('instagram') || lowerInput.includes('ig') || lowerInput.includes('social')) {
+            return "You can check out his latest edits and life updates on Instagram: <a href='https://www.instagram.com/d.shlokk/' target='_blank' class='ai-chat-link'>@d.shlokk</a>. Drop a DM!";
+        }
+        
+        if (lowerInput.includes('skills') || lowerInput.includes('do') || lowerInput.includes('tech')) {
+            return "Divya is a beast at Web Development (VibeCoding, React, WordPress), Creative Direction, and high-energy Video Editing. Basically, he brings ideas to life.";
+        }
+
+        return "That's super interesting! I'm still learning everything from Divya's Instagram, but the best way to get a solid answer is to DM him directly: <a href='https://www.instagram.com/d.shlokk/' target='_blank' class='ai-chat-link'>@d.shlokk</a>.";
+    }
 });
-
-lazyIframes.forEach(iframe => iframeObserver.observe(iframe));
-
-// Add loading animation
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-});
-
-// Console greeting (easter egg)
-console.log('%c👋 Welcome to my portfolio!', 'color: #6366F1; font-size: 20px; font-weight: bold;');
-console.log('%cLike what you see? Let\'s connect!', 'color: #EC4899; font-size: 14px;');
