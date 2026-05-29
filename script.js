@@ -263,21 +263,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const lowerInput = input.toLowerCase();
         
         if (lowerInput.includes('hi') || lowerInput.includes('hello') || lowerInput.includes('hey')) {
-            return "Hey there! I'm Divya's AI. I vibe-code and edit videos. What's on your mind?";
+            return "Yo! I'm Divya's digital twin. ⚡️ I'm here to help you navigate through the work, the vibes, and everything in between. What's up?";
         }
         
         if (lowerInput.includes('project') || lowerInput.includes('work') || lowerInput.includes('hire') || lowerInput.includes('price') || lowerInput.includes('rate')) {
-            return "Sounds like a sick project! To get the best vibe and exact details, you should talk to Divya directly. <br><br>Hit him up on IG here: <a href='https://www.instagram.com/d.shlokk/' target='_blank' class='ai-chat-link'>@d.shlokk</a> 🚀";
+            return "Straight to the point, I love it! 🚀 For projects and collaborations, Divya usually hops on a quick call to see if the vibe matches. You should definitely reach out on Instagram or WhatsApp. <br><br>IG: <a href='https://www.instagram.com/d.shlokk/' target='_blank' class='ai-chat-link'>@d.shlokk</a><br>WA: <a href='https://wa.me/918660438751' target='_blank' class='ai-chat-link'>Send a message</a>";
         }
 
         if (lowerInput.includes('instagram') || lowerInput.includes('ig') || lowerInput.includes('social')) {
-            return "You can check out his latest edits and life updates on Instagram: <a href='https://www.instagram.com/d.shlokk/' target='_blank' class='ai-chat-link'>@d.shlokk</a>. Drop a DM!";
+            return "Instagram is where the magic happens. 📸 He posts a lot of behind-the-scenes, his latest edits, and sometimes just random creative experiments. Go follow him: <a href='https://www.instagram.com/d.shlokk/' target='_blank' class='ai-chat-link'>@d.shlokk</a>.";
         }
         
-        if (lowerInput.includes('skills') || lowerInput.includes('do') || lowerInput.includes('tech')) {
-            return "Divya is a beast at Web Development (VibeCoding, React, WordPress), Creative Direction, and high-energy Video Editing. Basically, he brings ideas to life.";
+        if (lowerInput.includes('skills') || lowerInput.includes('do') || lowerInput.includes('tech') || lowerInput.includes('expert')) {
+            return "He's basically a three-headed dragon: <br>1️⃣ **Web Dev:** He calls it 'VibeCoding'—building sites that don't just work, but feel right. <br>2️⃣ **Creative Direction:** Leading shows and visual storytelling. <br>3️⃣ **Video Editing:** High-energy, cinematic stuff. <br><br>Which one are you interested in?";
         }
 
-        return "That's super interesting! I'm still learning everything from Divya's Instagram, but the best way to get a solid answer is to DM him directly: <a href='https://www.instagram.com/d.shlokk/' target='_blank' class='ai-chat-link'>@d.shlokk</a>.";
+        if (lowerInput.includes('who') || lowerInput.includes('divya')) {
+            return "Divya is a multi-disciplinary creative based in India. He's all about that techy creative vibe—blending code with art. He's been directing shows, building web experiences, and editing content that stops the scroll.";
+        }
+
+        if (lowerInput.includes('vibe') || lowerInput.includes('vibecoding')) {
+            return "VibeCoding is all about the feel. 🌊 It's not just about clean code; it's about the animations, the gradients, and the overall 'techy' energy that makes a site feel alive. Like this one!";
+        }
+
+        return "That's a cool question! I'm still absorbing Divya's creative DNA from his feed, but for a real-deal answer, you should just DM him: <a href='https://www.instagram.com/d.shlokk/' target='_blank' class='ai-chat-link'>@d.shlokk</a>. He's usually pretty quick to respond!";
     }
 });
