@@ -126,51 +126,61 @@ body::before {
     width: 40px;
     height: 40px;
     pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.1s ease-out;
-    mix-blend-mode: difference;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cursor-camera {
+    width: 100%;
+    height: 100%;
+    stroke: var(--accent-bright);
+    fill: rgba(34, 211, 238, 0.1);
+    filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.8));
+    transition: all 0.3s ease;
+}
+
+.cursor-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: #ff4b2b;
+    box-shadow: 0 0 10px #ff4b2b;
+    animation: blink 1s infinite;
+    z-index: 10001;
 }
 
 .cursor-viewfinder {
     position: absolute;
-    inset: 0;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    inset: -5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 4px;
+    pointer-events: none;
 }
 
 .cursor-viewfinder::before,
-.cursor-viewfinder::after,
-.cursor-dot {
+.cursor-viewfinder::after {
     content: '';
     position: absolute;
-    background: var(--white);
+    width: 8px;
+    height: 8px;
+    border-color: var(--accent-bright);
+    border-style: solid;
 }
 
-/* Viewfinder corners */
 .cursor-viewfinder::before {
     top: -2px; left: -2px;
-    width: 10px; height: 10px;
-    border-top: 2px solid var(--accent-bright);
-    border-left: 2px solid var(--accent-bright);
-    background: transparent;
+    border-width: 2px 0 0 2px;
 }
 
 .cursor-viewfinder::after {
     bottom: -2px; right: -2px;
-    width: 10px; height: 10px;
-    border-bottom: 2px solid var(--accent-bright);
-    border-right: 2px solid var(--accent-bright);
-    background: transparent;
-}
-
-.cursor-dot {
-    top: 50%; left: 50%;
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    background: #ff4b2b; /* Recording red dot */
-    box-shadow: 0 0 10px #ff4b2b;
-    animation: blink 1s infinite;
+    border-width: 0 2px 2px 0;
 }
 
 @keyframes blink {
@@ -270,7 +280,7 @@ body::before {
     display: none;
     background: transparent;
     border: none;
-    cursor: pointer;
+    cursor: none;
     padding: 0.5rem;
     z-index: 1001;
 }
@@ -725,7 +735,7 @@ body::before {
     padding: 0.8rem 1.5rem;
     border-radius: 8px;
     font-weight: 600;
-    cursor: pointer;
+    cursor: none;
     transition: var(--transition-normal);
     font-family: var(--font-body);
     font-size: 1rem;
@@ -782,7 +792,7 @@ body::before {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    cursor: pointer;
+    cursor: none;
     transition: var(--transition-fast);
     display: flex;
     align-items: center;
@@ -1304,7 +1314,7 @@ body::before {
     border-radius: 8px;
     font-size: 1.2rem;
     font-weight: 600;
-    cursor: pointer;
+    cursor: none;
     transition: var(--transition-normal);
     font-family: var(--font-body);
 }
@@ -1697,5 +1707,18 @@ body::before {
     }
     100% {
         transform: translateY(0px);
+    }
+}
+
+/* Restore default cursor on mobile/touch devices */
+@media (max-width: 1024px) {
+    * {
+        cursor: auto !important;
+    }
+    .custom-cursor {
+        display: none !important;
+    }
+    body {
+        cursor: auto !important;
     }
 }

@@ -3,49 +3,73 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inject Custom Cursor & Flash Effect
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
-    cursor.innerHTML = '<div class="cursor-viewfinder"></div><div class="cursor-dot"></div>';
+    cursor.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cursor-camera">
+            <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path>
+            <circle cx="12" cy="13" r="3"></circle>
+        </svg>
+        <div class="cursor-dot"></div>
+        <div class="cursor-viewfinder"></div>
+    `;
     document.body.appendChild(cursor);
 
     const flash = document.createElement('div');
     flash.className = 'flash-effect';
     document.body.appendChild(flash);
 
-    // Mouse Move - Camera Cursor & Perspective Parallax
+    // Track mouse position
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let cursorX = mouseX;
+    let cursorY = mouseY;
+
     document.addEventListener('mousemove', (e) => {
-        const x = e.clientX;
-        const y = e.clientY;
-        
-        // Cursor movement
-        cursor.style.transform = `translate(${x - 20}px, ${y - 20}px)`;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
 
         // Perspective Parallax (Flashy effect)
-        const moveX = (window.innerWidth / 2 - x) / 50;
-        const moveY = (window.innerHeight / 2 - y) / 50;
-        
+        const moveX = (window.innerWidth / 2 - mouseX) / 50;
+        const moveY = (window.innerHeight / 2 - mouseY) / 50;
         document.body.style.backgroundPosition = `${moveX}px ${moveY}px`;
     });
 
+    // Smooth cursor movement
+    function animateCursor() {
+        const dx = mouseX - cursorX;
+        const dy = mouseY - cursorY;
+        
+        cursorX += dx * 0.2;
+        cursorY += dy * 0.2;
+        
+        cursor.style.left = `${cursorX}px`;
+        cursor.style.top = `${cursorY}px`;
+        cursor.style.transform = `translate(-50%, -50%)`;
+        
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
     // Camera Flash Effect on Click
     document.addEventListener('mousedown', (e) => {
-        if (e.target.closest('button, a, .skill-card, .website-card')) {
+        if (e.target.closest('button, a, .skill-card, .website-card, .preview-btn')) {
             flash.classList.remove('flash-active');
             void flash.offsetWidth; // Trigger reflow
             flash.classList.add('flash-active');
         }
-        cursor.style.transform += ' scale(0.8)';
+        cursor.style.transform = `translate(-50%, -50%) scale(0.8)`;
     });
 
     document.addEventListener('mouseup', () => {
-        cursor.style.transform = cursor.style.transform.replace(' scale(0.8)', '');
+        cursor.style.transform = `translate(-50%, -50%) scale(1)`;
     });
 
     // Hover Scaling for Cursor
-    const interactiveElements = document.querySelectorAll('button, a, .skill-card, .website-card');
+    const interactiveElements = document.querySelectorAll('button, a, .skill-card, .website-card, .preview-btn');
     interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
             cursor.style.width = '60px';
             cursor.style.height = '60px';
-            cursor.style.transition = 'width 0.3s, height 0.3s, transform 0.1s';
+            cursor.style.transition = 'width 0.3s, height 0.3s';
         });
         el.addEventListener('mouseleave', () => {
             cursor.style.width = '40px';
