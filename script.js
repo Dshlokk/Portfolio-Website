@@ -192,6 +192,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!chatBtn || !chatWindow) return;
 
+    // Initialize Notification Sound
+    const notificationSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2358/2358-preview.mp3');
+    notificationSound.volume = 0.4;
+
     // Toggle Chat Window
     chatBtn.addEventListener('click', () => {
         chatWindow.classList.toggle('active');
@@ -240,6 +244,11 @@ document.addEventListener('DOMContentLoaded', () => {
         msgDiv.appendChild(contentDiv);
         chatBody.appendChild(msgDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
+
+        // Play sound if bot message
+        if (sender === 'bot') {
+            notificationSound.play().catch(e => console.log('Audio play blocked by browser until user interaction.'));
+        }
     }
 
     function showTypingIndicator() {
