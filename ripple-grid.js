@@ -10,14 +10,14 @@ class RippleGrid {
             gridColor: options.gridColor || '#6366f1',
             rippleIntensity: options.rippleIntensity !== undefined ? options.rippleIntensity : 0.05,
             gridSize: options.gridSize !== undefined ? options.gridSize : 10.0,
-            gridThickness: options.gridThickness !== undefined ? options.gridThickness : 15.0,
+            gridThickness: options.gridThickness !== undefined ? options.gridThickness : 20.0,
             fadeDistance: options.fadeDistance !== undefined ? options.fadeDistance : 1.5,
             vignetteStrength: options.vignetteStrength !== undefined ? options.vignetteStrength : 2.0,
-            glowIntensity: options.glowIntensity !== undefined ? options.glowIntensity : 0.1,
-            opacity: options.opacity !== undefined ? options.opacity : 0.6,
+            glowIntensity: options.glowIntensity !== undefined ? options.glowIntensity : 0.2,
+            opacity: options.opacity !== undefined ? options.opacity : 0.8,
             gridRotation: options.gridRotation !== undefined ? options.gridRotation : 0,
             mouseInteraction: options.mouseInteraction !== undefined ? options.mouseInteraction : true,
-            mouseInteractionRadius: options.mouseInteractionRadius !== undefined ? options.mouseInteractionRadius : 1.0
+            mouseInteractionRadius: options.mouseInteractionRadius !== undefined ? options.mouseInteractionRadius : 1.2
         };
 
         this.mousePosition = { x: 0.5, y: 0.5 };
@@ -42,7 +42,7 @@ class RippleGrid {
         Object.assign(this.canvasContainer.style, {
             position: 'fixed',
             inset: '0',
-            zIndex: '-2',
+            zIndex: '-1',
             pointerEvents: 'none',
             overflow: 'hidden'
         });
