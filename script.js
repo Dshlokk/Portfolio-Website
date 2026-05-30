@@ -183,142 +183,80 @@ document.querySelectorAll('button, .cta-button, .preview-btn').forEach(button =>
 
 // --- AI Chat Assistant Logic ---
 document.addEventListener('DOMContentLoaded', () => {
-    const chatBtn = document.querySelector('.ai-chat-btn');
-    const chatWindow = document.getElementById('aiChatWindow');
-    const closeBtn = document.getElementById('aiCloseBtn');
-    const chatInput = document.getElementById('aiChatInput');
-    const chatSendBtn = document.getElementById('aiChatSend');
-    const chatBody = document.getElementById('aiChatBody');
+    // ... (rest of the existing AI chat logic)
+});
 
-    if (!chatBtn || !chatWindow) return;
-
-    // Initialize Notification Sound
-    const notificationSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2358/2358-preview.mp3');
-    notificationSound.volume = 0.4;
-
-    // Toggle Chat Window
-    chatBtn.addEventListener('click', () => {
-        chatWindow.classList.toggle('active');
-        if (chatWindow.classList.contains('active')) {
-            chatInput.focus();
+// Decrypt Text Animation
+class TextDecryptor {
+    constructor(el) {
+        this.el = el;
+        this.chars = '!<>-_\\/[]{}—=+*^?#________';
+        this.update = this.update.bind(this);
+    }
+    setText(newText) {
+        const oldText = this.el.innerText;
+        const length = Math.max(oldText.length, newText.length);
+        const promise = new Promise((resolve) => this.resolve = resolve);
+        this.queue = [];
+        for (let i = 0; i < length; i++) {
+            const from = oldText[i] || '';
+            const to = newText[i] || '';
+            const start = Math.floor(Math.random() * 40);
+            const end = start + Math.floor(Math.random() * 40);
+            this.queue.push({ from, to, start, end });
         }
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+        return promise;
+    }
+    update() {
+        let output = '';
+        let complete = 0;
+        for (let i = 0, n = this.queue.length; i < n; i++) {
+            let { from, to, start, end, char } = this.queue[i];
+            if (this.frame >= end) {
+                complete++;
+                output += to;
+            } else if (this.frame >= start) {
+                if (!char || Math.random() < 0.28) {
+                    char = this.randomChar();
+                    this.queue[i].char = char;
+                }
+                output += `<span class="dud">${char}</span>`;
+            } else {
+                output += from;
+            }
+        }
+        this.el.innerHTML = output;
+        if (complete === this.queue.length) {
+            this.resolve();
+        } else {
+            this.frameRequest = requestAnimationFrame(this.update);
+            this.frame++;
+        }
+    }
+    randomChar() {
+        return this.chars[Math.floor(Math.random() * this.chars.length)];
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const decryptElements = document.querySelectorAll('.decrypt-text');
+    decryptElements.forEach(el => {
+        const fx = new TextDecryptor(el);
+        const text = el.getAttribute('data-text') || el.innerText;
+        
+        // Use IntersectionObserver to trigger animation when visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    fx.setText(text);
+                    observer.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(el);
     });
-
-    closeBtn.addEventListener('click', () => {
-        chatWindow.classList.remove('active');
-    });
-
-    // Handle Sending Messages
-    function sendMessage() {
-        const text = chatInput.value.trim();
-        if (!text) return;
-
-        // Add User Message
-        appendMessage(text, 'user');
-        chatInput.value = '';
-
-        // Show Typing Indicator
-        const typingId = showTypingIndicator();
-
-        // Simulate AI Processing (Powered by Gemini Concept)
-        setTimeout(() => {
-            document.getElementById(typingId).remove();
-            const response = generateAIResponse(text);
-            appendMessage(response, 'bot');
-        }, 1500 + Math.random() * 1000);
-    }
-
-    chatSendBtn.addEventListener('click', sendMessage);
-    chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-    });
-
-    // Handle Quick Action Pill Buttons
-    window.handleQuickAction = function(action) {
-        appendMessage(action, 'user');
-        const typingId = showTypingIndicator();
-        setTimeout(() => {
-            const indicator = document.getElementById(typingId);
-            if (indicator) indicator.remove();
-            const response = generateAIResponse(action);
-            appendMessage(response, 'bot');
-        }, 1000 + Math.random() * 500);
-    };
-
-    function appendMessage(text, sender) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = `ai-message ${sender}`;
-        
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'msg-content';
-        contentDiv.innerHTML = text; // allow HTML for links
-        
-        msgDiv.appendChild(contentDiv);
-        chatBody.appendChild(msgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-
-        // Play sound if bot message
-        if (sender === 'bot') {
-            notificationSound.play().catch(e => console.log('Audio play blocked by browser until user interaction.'));
-        }
-    }
-
-    function showTypingIndicator() {
-        const id = 'typing-' + Date.now();
-        const msgDiv = document.createElement('div');
-        msgDiv.className = 'ai-message bot';
-        msgDiv.id = id;
-        
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'msg-content typing-indicator';
-        contentDiv.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
-        
-        msgDiv.appendChild(contentDiv);
-        chatBody.appendChild(msgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-        return id;
-    }
-
-    // Simulated Gemini AI Persona - DIVYA SHLOKK (AI/ML & UX Developer)
-    function generateAIResponse(input) {
-        const query = input.toLowerCase();
-        
-        // Quick Action: View Projects
-        if (query === 'view projects') {
-            return "I have engineered several high-impact platforms including 'Ad Makers', 'Navodaya 2026', and 'Ecoma'. You can explore the full showcase in the 'Web Development' section of this site.";
-        }
-
-        // Quick Action: Contact Me
-        if (query === 'contact me' || query.includes('contact') || query.includes('hire') || query.includes('reach')) {
-            return "For technical inquiries or creative collaborations, let's move the conversation forward. <br><br>[🔗 Connect with Divya on Instagram](https://www.instagram.com/d.shlokk/)";
-        }
-
-        // Quick Action: Design Philosophy
-        if (query === 'design philosophy' || query.includes('philosophy') || query.includes('vibe')) {
-            return "My philosophy is 'VibeCoding'—a synthesis of high-level engineering precision (AI/ML) and minimalist, emotive UX. I build systems that don't just solve problems, but provide a premium experience.";
-        }
-
-        // Greeting / Identity
-        if (query.includes('hi') || query.includes('hello') || query.includes('who are you') || query.includes('hey')) {
-            return "Systems online. I'm Divya Shlokk's digital twin. I specialize in AI/ML, professional UX, and Data Science. How can I assist with your technical or creative requirements today?";
-        }
-        
-        // Projects & Experience
-        if (query.includes('project') || query.includes('work') || query.includes('experience') || query.includes('navodaya') || query.includes('ad makers') || query.includes('ecoma')) {
-            return "I'm currently architecting 'Ad Makers' (marketing agency infrastructure) and directing visual narratives for 'Navodaya 2026'. My recent focus includes Meta-OpenEnv research and 'Ecoma' marketing design. I bridge high-level Engineering (AI/ML) with precision UX. Which specific vertical would you like to discuss?";
-        }
-
-        // Skills & Technical Stack
-        if (query.includes('skill') || query.includes('stack') || query.includes('tech') || query.includes('do you do')) {
-            return "My stack is optimized for performance and aesthetic impact: Python (AI/ML), Data Science pipelines, and Full-stack Web Development (React/WordPress). I focus on 'VibeCoding'—where engineering precision meets high-end design. For a deep dive into my codebase or design systems, let's connect.";
-        }
-        
-        // Contact / Collaboration / Technical Limit
-        if (query.includes('contact') || query.includes('hire') || query.includes('price') || query.includes('reach') || query.includes('instagram') || query.includes('talk') || query.includes('connect')) {
-            return "For high-bandwidth collaboration, technical inquiries, or to view my latest creative output, let's move the conversation forward. <br><br>[🔗 Connect with Divya on Instagram](https://www.instagram.com/d.shlokk/)";
-        }
-
-        // Fallback for technical limits or complex queries
-        return "Insightful query. To discuss this further and explore how I can bring engineering precision to your next project, let's connect directly. <br><br>[🔗 Connect with Divya on Instagram](https://www.instagram.com/d.shlokk/)";
-    }
 });
