@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Divya Shlokk – Creative Professional</title>
-
+    <title>Let's Collaborate – Divya Shlokk</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-
     <!-- CAMERA UI -->
     <div class="camera-ui">
         <div class="rec-indicator">
@@ -38,91 +34,35 @@
                 <a href="web-dev.html" class="nav-link">Web Development</a>
                 <a href="creative.html" class="nav-link">Creative Direction</a>
                 <a href="video.html" class="nav-link">Video Editing</a>
-                <a href="collaborate.html" class="nav-link">Let's Collaborate</a>
+                <a href="collaborate.html" class="nav-link active">Let's Collaborate</a>
             </div>
         </div>
     </nav>
 
     <!-- MAIN -->
-    <main class="home-container">
-        <div class="hero-section">
-
-          <div class="profile-image-container">
-
-    <div class="profile-bg">
-        <span class="circle circle-one"></span>
-        <span class="circle circle-two"></span>
-    </div>
-
-    <div class="profile-image">
-        <img src="./assets/divya.png" alt="Divya Shlokk">
-
-    </div>
-
-</div>
-
-
-            <!-- HERO CONTENT -->
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="title-line">Multi-Disciplinary</span>
-                    <span class="title-line">Creative</span>
-                </h1>
-
-                <div class="hero-description">
-                    <p>
-                        A passionate creator bridging web development, creative direction,
-                        and video editing. I transform ideas into digital experiences
-                        that captivate and inspire.
-                    </p>
-                    <p>
-                        From building responsive websites to directing compelling visual
-                        narratives, I bring a blend of technical depth and creative vision
-                        to every project.
-                    </p>
-                </div>
-
-                <!-- CTA -->
-                <div class="cta-buttons">
-                    <a href="web-dev.html" class="cta-button primary">
-                        View My Work
-                    </a>
-
-                    <a 
-                        href="https://wa.me/918660438751?text=Hey%20there%2C%20let%E2%80%99s%20connect%20for%20a%20project"
-                        class="cta-button secondary"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Get In Touch
-                    </a>
-                </div>
-            </div>
+    <main class="page-container collaborate-page">
+        <div class="page-header">
+            <h1 class="page-title decrypt-text" data-text="Let's Collaborate">Let's Collaborate</h1>
+            <p class="page-subtitle decrypt-text" data-text="Open for new projects and creative partnerships">Open for new projects and creative partnerships</p>
         </div>
 
-        <!-- SKILLS -->
-        <div class="skills-grid">
-            <div class="skill-card" style="--delay: 0s">
-                <div class="skill-icon">🌐</div>
-                <h3>Web Development</h3>
-                <p>Crafting modern websites with VibeCoding & WordPress</p>
-                <a href="web-dev.html" class="skill-link">Explore →</a>
-            </div>
-
-            <div class="skill-card" style="--delay: 0.1s">
-                <div class="skill-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+        <div class="projects-container">
+            <div class="cta-section" style="margin-top: 2rem; padding: 4rem 2rem;">
+                <h3 style="font-size: 2.5rem; margin-bottom: 2rem;">Work With Me</h3>
+                <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto 3rem; line-height: 1.8; color: var(--gray);">
+                    If you are a video editor agency or any individual who would love to collaborate on a new project, product, or anything where you think you can use my skills, I would be more than helpful and open to work with them.
+                </p>
+                <div class="cta-buttons" style="justify-content: center;">
+                    <a 
+                        href="https://wa.me/918660438751?text=Hey%20there%2C%20let%E2%80%99s%20collaborate%20on%20a%20project"
+                        class="cta-button primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style="padding: 1.2rem 2.5rem; font-size: 1.1rem;"
+                    >
+                        Get In Touch via WhatsApp
+                    </a>
                 </div>
-                <h3>Creative Direction</h3>
-                <p>Visual storytelling, branding & production</p>
-                <a href="creative.html" class="skill-link">Explore →</a>
-            </div>
-
-            <div class="skill-card" style="--delay: 0.2s">
-                <div class="skill-icon">✂️</div>
-                <h3>Video Editing</h3>
-                <p>Editing that turns footage into emotion</p>
-                <a href="video.html" class="skill-link">Explore →</a>
             </div>
         </div>
     </main>
@@ -134,16 +74,16 @@
         </button>
 
         <div class="ai-chat-window" id="aiChatWindow">
-              <div class="ai-chat-header">
-            <div class="ai-header-info">
-                <div class="ai-avatar">✦</div>
-                <div class="ai-header-text">
-                    <h4>Divya's Assistant</h4>
-                    <span><span class="status-dot"></span> Online</span>
+            <div class="ai-chat-header">
+                <div class="ai-header-info">
+                    <div class="ai-avatar">✦</div>
+                    <div class="ai-header-text">
+                        <h4>Divya's Assistant</h4>
+                        <span><span class="status-dot"></span> Online</span>
+                    </div>
                 </div>
+                <button class="ai-close-btn" id="aiCloseBtn">✕</button>
             </div>
-            <button class="ai-close-btn" id="aiCloseBtn">✕</button>
-        </div>
             
             <div class="ai-chat-body" id="aiChatBody">
                 <div class="ai-quick-actions">
