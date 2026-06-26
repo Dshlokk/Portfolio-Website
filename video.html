@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="stylesheet" href="styles.css">
+    
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/06/25/18/20260625184828-JENPCZ1D.js" defer></script>
 </head>
 <body>
     <!-- CAMERA UI -->
@@ -145,44 +148,7 @@
         }
     </script>
 
-    <!-- AI CHAT BOT UI -->
-    <div class="ai-chat-container">
-        <button class="ai-chat-btn" aria-label="Chat with Divya's AI Assistant">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sparkle-icon"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-        </button>
 
-        <div class="ai-chat-window" id="aiChatWindow">
-            <div class="ai-chat-header">
-                <div class="ai-header-info">
-                    <div class="status-dot"></div>
-                    <h4>Divya's Assistant</h4>
-                </div>
-                <button class="ai-close-btn" id="aiCloseBtn">&times;</button>
-            </div>
-
-            <div class="ai-chat-body" id="aiChatBody">
-                <div class="ai-quick-actions">
-                    <button class="pill-btn" onclick="handleQuickAction('View Projects')">View Projects</button>
-                    <button class="pill-btn" onclick="handleQuickAction('Contact Me')">Contact Me</button>
-                    <button class="pill-btn" onclick="handleQuickAction('Design Philosophy')">Design Philosophy</button>
-                </div>
-                <div class="ai-message bot">
-                    <div class="msg-content">
-                        Hey! I'm Divya Shlokk's assistant. How can I help you with your technical or creative projects today?
-                    </div>
-                </div>
-            </div>
-
-            <div class="ai-chat-footer">
-                <div class="ai-chat-input-wrapper">
-                    <input type="text" id="aiChatInput" placeholder="Message..." autocomplete="off">
-                    <button class="ai-send-btn" id="aiChatSend" aria-label="Send Message">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="https://unpkg.com/ogl"></script>
     <script src="ripple-grid.js"></script>

@@ -181,10 +181,6 @@ document.querySelectorAll('button, .cta-button, .preview-btn').forEach(button =>
     });
 });
 
-// --- AI Chat Assistant Logic ---
-document.addEventListener('DOMContentLoaded', () => {
-    // ... (rest of the existing AI chat logic)
-});
 
 // Decrypt Text Animation
 class TextDecryptor {
