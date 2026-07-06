@@ -154,7 +154,8 @@
                 <div class="lightbox-player-wrapper">
                     <div class="video-tech-frame">
                         <div class="video-wrapper">
-                            <iframe id="lightbox-iframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe id="lightbox-iframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: none;"></iframe>
+                            <video id="lightbox-video" controls playsinline style="display: none; width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: #000;"></video>
                         </div>
                         <div class="video-corner-br"></div>
                     </div>
@@ -258,97 +259,123 @@
             renderPortfolio();
         }
 
-        // Local Mock Data representing Sanity document schema
+        // Local Data representing your Canva Portfolio projects!
         const portfolioVideos = [
             {
-                id: "v1",
-                title: "Cinematic Narrative & Storytelling Showreel",
+                id: "v_9_22",
+                title: "Cinematic Editing Showreel",
                 category: "narrative",
-                description: "A compilation of storytelling and post-production work showcasing expert-level pacing, narrative structures, DaVinci Resolve color grading, and immersive soundscapes.",
-                videoUrl: "https://www.youtube.com/embed/ScMzIvxBSi4",
-                thumbnail: "https://img.youtube.com/vi/ScMzIvxBSi4/maxresdefault.jpg",
-                duration: "2:45",
-                role: "Lead Editor & Colorist",
-                software: ["DaVinci Resolve", "Adobe Premiere Pro", "After Effects"],
-                client: "Personal Work",
+                description: "Personal editing and post-production showreel. Highlighting advanced pacing, spatial matching, and visual momentum.",
+                videoUrl: "https://divyashlokk.my.canva.site/_assets/video/c30d477f493c577fb14c49d2940b74c3.mp4",
+                thumbnail: "https://divyashlokk.my.canva.site/_assets/video/c30d477f493c577fb14c49d2940b74c3.mp4",
+                duration: "0:30",
+                role: "Video Editor & Colorist",
+                software: ["Adobe Premiere Pro"],
+                client: "Personal Project",
                 isFeatured: true
             },
             {
-                id: "v2",
-                title: "Elysian Clothing - Summer Fashion Campaign",
-                category: "commercial",
-                description: "A fast-paced, high-energy promotional launch video for Elysian Apparel. Focused on sharp cinematic styling, stylized light leaks, and tempo-matched edits.",
-                videoUrl: "https://www.youtube.com/embed/eYq7WapuDLU",
-                thumbnail: "https://img.youtube.com/vi/eYq7WapuDLU/maxresdefault.jpg",
-                duration: "0:45",
-                role: "Post-Production Supervisor",
-                software: ["Adobe Premiere Pro", "After Effects"],
-                client: "Elysian Apparel Ltd.",
-                isFeatured: false
-            },
-            {
-                id: "v3",
-                title: "Apex Tech Showcase - Product Launch Promo",
-                category: "commercial",
-                description: "Clean product showcase advertising compilation. Features tracking, smooth speed ramps, and tech-focused sound design to outline product features.",
-                videoUrl: "https://www.youtube.com/embed/tgbNymZ7vqY",
-                thumbnail: "https://img.youtube.com/vi/tgbNymZ7vqY/maxresdefault.jpg",
+                id: "v_1_80",
+                title: "The Infinite Whistle (2025)",
+                category: "narrative",
+                description: "Patty Moore, a name synonymous with heart-pounding suspense, is celebrated for weaving enigmatic narratives that unveil the concealed, the obscured, and the intensely gripping. With every film, she plunges into the depths of mystery, orchestrating nail-biting tension and unforgettable characters, keeping her audience on the edge of their seats.",
+                videoUrl: "https://divyashlokk.my.canva.site/_assets/video/9b2b17d1d840c3c04d22eb4065e39b33.mp4",
+                thumbnail: "https://divyashlokk.my.canva.site/_assets/video/9b2b17d1d840c3c04d22eb4065e39b33.mp4",
                 duration: "1:00",
-                role: "VFX Artist & Editor",
-                software: ["After Effects", "Premiere Pro"],
-                client: "Apex Tech Inc.",
+                role: "Video Editor & Colorist",
+                software: ["Adobe Premiere Pro"],
+                client: "Personal Project",
                 isFeatured: false
             },
             {
-                id: "v4",
-                title: "Cyberpunk Streetwear - Vertical Cinematic Reel",
+                id: "v_6_165",
+                title: "Baby Shower BTS (Reel Cut)",
                 category: "vertical",
-                description: "Cinematic smartphone commercial optimized for social media vertical formats. Features kinetic transitions and glitches synced to glitch-hop music.",
-                videoUrl: "https://www.youtube.com/embed/3P-V6Xm0m9Y",
-                thumbnail: "https://img.youtube.com/vi/3P-V6Xm0m9Y/maxresdefault.jpg",
-                duration: "0:15",
-                role: "Mobile Format Specialist",
-                software: ["Premiere Pro", "CapCut Pro"],
-                client: "Neon Streetwear",
-                isFeatured: false
-            },
-            {
-                id: "v5",
-                title: "The Silent Forest - Ambient Film Project",
-                category: "narrative",
-                description: "An artistic film project exploring natural isolation. Heavy reliance on custom audio designs and color palettes to create a meditative environment.",
-                videoUrl: "https://www.youtube.com/embed/aqz-KE-BPKQ",
-                thumbnail: "https://img.youtube.com/vi/aqz-KE-BPKQ/maxresdefault.jpg",
-                duration: "5:12",
-                role: "Director of Editing & Sound",
-                software: ["DaVinci Resolve", "Adobe Audition"],
-                client: "Indie Film Showcase",
-                isFeatured: false
-            },
-            {
-                id: "v6",
-                title: "Pulse Fitness App - High Intensity Social Reel",
-                category: "vertical",
-                description: "A fast split-screen, bold-text-overlay vertical video styled for Instagram Reels. Designed to maximize watch-time and interaction rates.",
-                videoUrl: "https://www.youtube.com/embed/Hk3v5W2S87g",
-                thumbnail: "https://img.youtube.com/vi/Hk3v5W2S87g/maxresdefault.jpg",
+                description: "Joyful baby shower reel capturing heartfelt moments, laughter, and love — beautifully edited to highlight emotions, décor, and celebration vibes.",
+                videoUrl: "https://divyashlokk.my.canva.site/_assets/video/5b848b730125d090fd7a20fb1fdb8a28.mp4",
+                thumbnail: "https://divyashlokk.my.canva.site/_assets/video/5b848b730125d090fd7a20fb1fdb8a28.mp4",
                 duration: "0:30",
-                role: "Short-form Creator",
-                software: ["Premiere Pro", "After Effects"],
-                client: "Pulse Fitness",
+                role: "Motion Designer",
+                software: ["Adobe Premiere Pro", "After Effects"],
+                client: "Roomance with Ipsa",
                 isFeatured: false
             },
             {
-                id: "v7",
-                title: "Tokyo Explorations - Travel Vlog Edit",
-                category: "narrative",
-                description: "Visual editing for travel channel content. Focuses on speed ramping, aesthetic color grades, and fluid spatial matches to maintain audience retention.",
-                videoUrl: "https://www.youtube.com/embed/kX48Vl_V67E",
-                thumbnail: "https://img.youtube.com/vi/kX48Vl_V67E/maxresdefault.jpg",
-                duration: "8:20",
-                role: "Video Editor",
-                software: ["Adobe Premiere Pro", "Media Encoder"],
-                client: "Tokyo Trails",
+                id: "v_6_140",
+                title: "Baby Shower BTS (Instagram)",
+                category: "vertical",
+                description: "Joyful baby shower reel capturing heartfelt moments, laughter, and love — beautifully edited to highlight emotions, décor, and celebration vibes.",
+                videoUrl: "https://www.instagram.com/reel/DMpOexOIXKj/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+                thumbnail: "assets/placeholder.png",
+                duration: "0:30",
+                role: "Motion Designer",
+                software: ["Adobe Premiere Pro", "After Effects"],
+                client: "Roomance with Ipsa",
+                isFeatured: false
+            },
+            {
+                id: "v_7_192",
+                title: "Endeavor (Short Film)",
+                category: "commercial",
+                description: "Endeavor — a haunting story of a mad, obsessed painter whose passion blurs the line between creation, destruction, and madness.",
+                videoUrl: "https://divyashlokk.my.canva.site/_assets/video/0d778721fad0cf43dbaf893cc6aa8bb6.mp4",
+                thumbnail: "https://divyashlokk.my.canva.site/_assets/video/0d778721fad0cf43dbaf893cc6aa8bb6.mp4",
+                duration: "1:00",
+                role: "Video Editor & Colorist",
+                software: ["Adobe Premiere Pro"],
+                client: "Personal Project",
+                isFeatured: false
+            },
+            {
+                id: "v_7_192b",
+                title: "Town Talk (Music Video)",
+                category: "commercial",
+                description: "Town Talk — a vibrant music video edit blending dynamic cuts, rhythmic pacing, and urban aesthetics to amplify energy and storytelling.",
+                videoUrl: "https://divyashlokk.my.canva.site/_assets/video/48ab28a6147c674fc6334b730df5b8c1.mp4",
+                thumbnail: "https://divyashlokk.my.canva.site/_assets/video/48ab28a6147c674fc6334b730df5b8c1.mp4",
+                duration: "1:00",
+                role: "Video Editor & Colorist",
+                software: ["Adobe Premiere Pro"],
+                client: "Personal Project",
+                isFeatured: false
+            },
+            {
+                id: "v_8_150",
+                title: "Comeback (Promo Ad)",
+                category: "commercial",
+                description: "Comeback: A compelling ad for Astropholic, blending creativity and storytelling to deliver an impactful message.",
+                videoUrl: "https://divyashlokk.my.canva.site/_assets/video/aa02568d22dda09197c6b07f09f5626f.mp4",
+                thumbnail: "https://divyashlokk.my.canva.site/_assets/video/aa02568d22dda09197c6b07f09f5626f.mp4",
+                duration: "1:00",
+                role: "Video Editor & Colorist",
+                software: ["Adobe Premiere Pro"],
+                client: "Astropholic",
+                isFeatured: false
+            },
+            {
+                id: "v_8_150b",
+                title: "Mahabalipuram Cinematic (Travel)",
+                category: "vertical",
+                description: "Mahabalipuram Cinematic: A captivating reel highlighting the timeless beauty and architectural grandeur of Mahabalipuram.",
+                videoUrl: "https://divyashlokk.my.canva.site/_assets/video/d805f8beb1abc30197582bf96c2b2ea5.mp4",
+                thumbnail: "https://divyashlokk.my.canva.site/_assets/video/d805f8beb1abc30197582bf96c2b2ea5.mp4",
+                duration: "0:30",
+                role: "Video Editor & Colorist",
+                software: ["Adobe Premiere Pro"],
+                client: "Personal Project",
+                isFeatured: false
+            },
+            {
+                id: "v_8_150c",
+                title: "Its Durga Puja (Festival Reel)",
+                category: "vertical",
+                description: "Durga Puja Celebration Reel: A vibrant reel capturing the essence, joy, and cultural richness of Durga Puja celebrations.",
+                videoUrl: "https://divyashlokk.my.canva.site/_assets/video/d9d753ea7fac989f24d202fbef163bfe.mp4",
+                thumbnail: "https://divyashlokk.my.canva.site/_assets/video/d9d753ea7fac989f24d202fbef163bfe.mp4",
+                duration: "0:30",
+                role: "Video Editor & Colorist",
+                software: ["Adobe Premiere Pro"],
+                client: "Personal Project",
                 isFeatured: false
             }
         ];
@@ -378,7 +405,29 @@
             document.getElementById('videos-grid').addEventListener('click', handleCardClick);
             document.getElementById('vertical-grid').addEventListener('click', handleCardClick);
 
-            // Fetch from Sanity and render
+            // Hover preview play/pause delegation (capturing phase)
+            document.addEventListener('mouseenter', (e) => {
+                const card = e.target.closest('.video-card, .featured-video-card');
+                if (card) {
+                    const video = card.querySelector('video.card-video-preview');
+                    if (video) {
+                        video.play().catch(err => {});
+                    }
+                }
+            }, true);
+
+            document.addEventListener('mouseleave', (e) => {
+                const card = e.target.closest('.video-card, .featured-video-card');
+                if (card) {
+                    const video = card.querySelector('video.card-video-preview');
+                    if (video) {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                }
+            }, true);
+
+            // Fetch from Sanity and render (falls back to local data if no project credentials)
             await fetchVideosFromSanity();
         }
 
@@ -388,6 +437,21 @@
                 const videoId = card.getAttribute('data-id');
                 openLightbox(videoId);
             }
+        }
+
+        // Helper to render responsive cover images or video autoplays on grid cards
+        function renderThumbnailMedia(video) {
+            if (video.thumbnail && video.thumbnail.endsWith('.mp4')) {
+                return `
+                    <video class="card-video-preview" src="${video.thumbnail}" muted playsinline preload="metadata" loop></video>
+                `;
+            }
+            // Instagram default placeholder fallback
+            const isInstagram = video.videoUrl.includes('instagram.com');
+            const fallbackSrc = isInstagram ? 'https://img.youtube.com/vi/0/hqdefault.jpg' : video.thumbnail;
+            return `
+                <img class="card-img-preview" src="${fallbackSrc}" alt="${video.title}" loading="lazy" onerror="this.src='https://img.youtube.com/vi/0/hqdefault.jpg'">
+            `;
         }
 
         function renderPortfolio() {
@@ -419,7 +483,7 @@
                     <div class="featured-video-card" data-id="${featuredVideo.id}">
                         <div class="featured-grid-lines"></div>
                         <div class="featured-thumb-side">
-                            <img src="${featuredVideo.thumbnail}" alt="${featuredVideo.title}" onerror="this.src='https://img.youtube.com/vi/${featuredVideo.videoUrl.split('/').pop()}/hqdefault.jpg'">
+                            ${renderThumbnailMedia(featuredVideo)}
                             <div class="play-overlay">
                                 <div class="play-button-icon-large">
                                     <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor">
@@ -433,8 +497,8 @@
                         </div>
                         <div class="featured-info-side">
                             <div class="tech-header-specs">
-                                <span class="tech-spec-tag">FORMAT: 4K UHD</span>
-                                <span class="tech-spec-tag">FPS: 23.976</span>
+                                <span class="tech-spec-tag">FORMAT: 1080p HD</span>
+                                <span class="tech-spec-tag">FPS: 29.97</span>
                                 <span class="tech-spec-tag">RATIO: 16:9</span>
                             </div>
                             <span class="featured-tag-badge">${featuredVideo.category.toUpperCase()}</span>
@@ -482,7 +546,7 @@
                     verticalGrid.innerHTML += `
                         <div class="video-card vertical-card" data-id="${video.id}">
                             <div class="video-card-thumb vertical-thumb">
-                                <img src="${video.thumbnail}" alt="${video.title}" onerror="this.src='https://img.youtube.com/vi/${video.videoUrl.split('/').pop()}/hqdefault.jpg'" loading="lazy">
+                                ${renderThumbnailMedia(video)}
                                 <div class="play-overlay">
                                     <div class="play-button-icon">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -509,7 +573,7 @@
                     horizontalGrid.innerHTML += `
                         <div class="video-card" data-id="${video.id}">
                             <div class="video-card-thumb">
-                                <img src="${video.thumbnail}" alt="${video.title}" onerror="this.src='https://img.youtube.com/vi/${video.videoUrl.split('/').pop()}/hqdefault.jpg'" loading="lazy">
+                                ${renderThumbnailMedia(video)}
                                 <div class="play-overlay">
                                     <div class="play-button-icon">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -557,19 +621,37 @@
             }, 100);
         }
 
-        // Lightbox Functions
+        // Lightbox Functions supporting dual player (IFrame embeds and Native Video streams)
         function openLightbox(videoId) {
             const lightbox = document.getElementById('video-lightbox');
             const iframe = document.getElementById('lightbox-iframe');
+            const videoPlayer = document.getElementById('lightbox-video');
             
-            // Set current index in filtered list
             currentVideoIndex = filteredVideos.findIndex(v => v.id === videoId);
             if (currentVideoIndex === -1) return;
 
             const video = filteredVideos[currentVideoIndex];
             
-            // Populate video source (append autoplay)
-            iframe.src = `${video.videoUrl}?autoplay=1&rel=0&showinfo=0&modestbranding=1`;
+            const isMp4 = video.videoUrl.endsWith('.mp4');
+            if (isMp4) {
+                iframe.style.display = 'none';
+                iframe.src = '';
+                videoPlayer.style.display = 'block';
+                videoPlayer.src = video.videoUrl;
+                videoPlayer.play();
+            } else {
+                videoPlayer.style.display = 'none';
+                videoPlayer.src = '';
+                videoPlayer.pause();
+                iframe.style.display = 'block';
+                // Adjust for standard instagram/external player embed links if necessary
+                let embedUrl = video.videoUrl;
+                if (embedUrl.includes('instagram.com/reel/')) {
+                    const reelId = embedUrl.split('/reel/')[1].split('/')[0];
+                    embedUrl = `https://www.instagram.com/reel/${reelId}/embed`;
+                }
+                iframe.src = embedUrl.includes('/embed') ? embedUrl : `${embedUrl}?autoplay=1&rel=0&showinfo=0&modestbranding=1`;
+            }
 
             // Populate details
             document.getElementById('lightbox-title').innerText = video.title;
@@ -590,9 +672,12 @@
         function closeLightbox() {
             const lightbox = document.getElementById('video-lightbox');
             const iframe = document.getElementById('lightbox-iframe');
+            const videoPlayer = document.getElementById('lightbox-video');
             
-            // Stop Video playback
+            // Stop playback
             iframe.src = '';
+            videoPlayer.src = '';
+            videoPlayer.pause();
 
             // Disable body lock
             document.body.style.overflow = '';
@@ -604,16 +689,38 @@
         function navigateLightbox(direction) {
             if (filteredVideos.length <= 1) return;
 
-            // Fade out video temporarily during transition
             const iframe = document.getElementById('lightbox-iframe');
+            const videoPlayer = document.getElementById('lightbox-video');
+            
             iframe.style.opacity = '0';
+            videoPlayer.style.opacity = '0';
             iframe.style.transition = 'opacity 0.2s';
+            videoPlayer.style.transition = 'opacity 0.2s';
 
             setTimeout(() => {
                 currentVideoIndex = (currentVideoIndex + direction + filteredVideos.length) % filteredVideos.length;
                 const video = filteredVideos[currentVideoIndex];
 
-                iframe.src = `${video.videoUrl}?autoplay=1&rel=0&showinfo=0&modestbranding=1`;
+                const isMp4 = video.videoUrl.endsWith('.mp4');
+                if (isMp4) {
+                    iframe.style.display = 'none';
+                    iframe.src = '';
+                    videoPlayer.style.display = 'block';
+                    videoPlayer.src = video.videoUrl;
+                    videoPlayer.play();
+                } else {
+                    videoPlayer.style.display = 'none';
+                    videoPlayer.src = '';
+                    videoPlayer.pause();
+                    iframe.style.display = 'block';
+                    let embedUrl = video.videoUrl;
+                    if (embedUrl.includes('instagram.com/reel/')) {
+                        const reelId = embedUrl.split('/reel/')[1].split('/')[0];
+                        embedUrl = `https://www.instagram.com/reel/${reelId}/embed`;
+                    }
+                    iframe.src = embedUrl.includes('/embed') ? embedUrl : `${embedUrl}?autoplay=1&rel=0&showinfo=0&modestbranding=1`;
+                }
+
                 document.getElementById('lightbox-title').innerText = video.title;
                 document.getElementById('lightbox-category').innerText = video.category === 'vertical' ? 'SHORTS / REEL' : video.category.toUpperCase();
                 document.getElementById('lightbox-duration').innerText = video.duration;
@@ -623,6 +730,7 @@
                 document.getElementById('lightbox-software').innerText = video.software.join(', ');
 
                 iframe.style.opacity = '1';
+                videoPlayer.style.opacity = '1';
             }, 200);
         }
     </script>
