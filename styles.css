@@ -1582,6 +1582,22 @@ body::before {
     padding-bottom: 56.25%; /* 16:9 ratio */
     height: 0;
     overflow: hidden;
+    background: linear-gradient(135deg, rgba(15, 15, 35, 0.9) 0%, rgba(30, 30, 70, 0.9) 100%);
+}
+
+.video-card-thumb::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at center, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+    animation: pulseGlow 3s infinite ease-in-out;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
 }
 
 .video-card-thumb img, .video-card-thumb video {

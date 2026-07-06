@@ -485,6 +485,7 @@
 
             // Hover preview play/pause delegation (capturing phase)
             document.addEventListener('mouseenter', (e) => {
+                if (!window.matchMedia('(hover: hover)').matches) return;
                 const card = e.target.closest('.video-card, .featured-video-card');
                 if (card) {
                     const video = card.querySelector('video.card-video-preview');
@@ -495,6 +496,7 @@
             }, true);
 
             document.addEventListener('mouseleave', (e) => {
+                if (!window.matchMedia('(hover: hover)').matches) return;
                 const card = e.target.closest('.video-card, .featured-video-card');
                 if (card) {
                     const video = card.querySelector('video.card-video-preview');
@@ -521,7 +523,7 @@
         function renderThumbnailMedia(video) {
             if (video.thumbnail && video.thumbnail.endsWith('.mp4')) {
                 return `
-                    <video class="card-video-preview" src="${video.thumbnail}" muted playsinline preload="metadata" loop></video>
+                    <video class="card-video-preview" src="${video.thumbnail}" muted playsinline preload="none" loop></video>
                 `;
             }
             // Instagram default placeholder fallback
@@ -697,6 +699,39 @@
                     }, idx * 60);
                 });
             }, 100);
+
+            // Lazy-preload metadata for visible card videos
+            setupLazyPreload();
+        }
+
+        // Lazy-preloads videos when they enter the viewport to optimize mobile performance
+        function setupLazyPreload() {
+            if (!('IntersectionObserver' in window)) {
+                // Fallback: Preload everything immediately if browser does not support IntersectionObserver
+                document.querySelectorAll('video.card-video-preview').forEach(v => {
+                    v.setAttribute('preload', 'metadata');
+                });
+                return;
+            }
+            
+            const videoObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const video = entry.target;
+                        if (video.getAttribute('preload') === 'none') {
+                            video.setAttribute('preload', 'metadata');
+                        }
+                        observer.unobserve(video);
+                    }
+                });
+            }, {
+                rootMargin: '150px 0px', // Preload when video is within 150px of the viewport
+                threshold: 0.01
+            });
+            
+            document.querySelectorAll('video.card-video-preview').forEach(video => {
+                videoObserver.observe(video);
+            });
         }
 
         // Lightbox Functions supporting dual player (IFrame embeds and Native Video streams)
