@@ -7,7 +7,7 @@ A modern, responsive portfolio website showcasing web development, creative dire
 - **Homepage**: Personal introduction with profile photo and social media links (Instagram & LinkedIn)
 - **Web Development Page**: Interactive website showcase with iframe previews
 - **Creative Direction Page**: YouTube playlist embed and Instagram Reel showcasing creative work
-- **Video Editing Page**: Canva portfolio integration with interactive preview
+- **Video Editing Page**: Premium custom video portfolio with category filtering, spotlight reels, and a cinema lightbox player (pre-architected for Sanity CMS)
 
 ## File Structure
 
@@ -84,10 +84,12 @@ portfolio/
 - Skills display
 
 ### Video Editing Page
-- Canva portfolio embed
-- Interactive preview overlay
-- Editing capabilities grid
-- Software tools showcase
+- Technical spotlight showcase video card
+- Interactive category filtering (Commercials, Narrative, Shorts/Reels)
+- Dedicated 9:16 vertical video layout shelf for Reels & Shorts
+- Immersive cinematic Lightbox modal player with next/prev navigation
+- Spec-grid showing role, client, duration, and tools used for each project
+- Editing capabilities grid and software tools showcase
 
 ## Browser Support
 

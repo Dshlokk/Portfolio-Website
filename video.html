@@ -10,6 +10,10 @@
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="stylesheet" href="styles.css">
     
+    <!-- Sanity Client & Configuration -->
+    <script src="config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@sanity/client@6.1.3/dist/index.umd.min.js"></script>
+    
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2026/06/25/18/20260625184828-JENPCZ1D.js" defer></script>
 </head>
@@ -48,37 +52,33 @@
         </div>
 
         <div class="video-portfolio-container">
-            <div class="portfolio-showcase">
-                <div class="showcase-header">
-                    <div class="header-content">
-                        <h2>My Editing Portfolio</h2>
-                        <p>Explore my collection of video editing work, showcasing expertise in storytelling, pacing, color grading, and post-production excellence.</p>
-                    </div>
-                    <a href="https://divyashlokk.my.canva.site/" target="_blank" class="external-link-btn">
-                        View Full Portfolio
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
+            <!-- Dynamic Category Filter Tabs -->
+            <div class="video-filters">
+                <button class="filter-btn active" data-filter="all">ALL WORKS</button>
+                <button class="filter-btn" data-filter="commercial">COMMERCIALS & PROMOS</button>
+                <button class="filter-btn" data-filter="narrative">NARRATIVE & CREATIVE</button>
+                <button class="filter-btn" data-filter="vertical">SHORTS & REELS</button>
+            </div>
 
-                <div class="portfolio-embed">
-                    <div class="embed-wrapper">
-                        <iframe 
-                            src="https://divyashlokk.my.canva.site/" 
-                            frameborder="0" 
-                            allowfullscreen
-                            class="portfolio-iframe">
-                        </iframe>
-                    </div>
-                    <div class="embed-overlay">
-                        <button onclick="removeOverlay()" class="interact-btn">
-                            Click to Interact with Portfolio
-                        </button>
-                    </div>
+            <!-- Spotlight/Featured Video Section -->
+            <div class="featured-video-spotlight" id="featured-video-spotlight">
+                <!-- Dynamically populated -->
+            </div>
+
+            <!-- Horizontal Video Grid -->
+            <div class="videos-grid" id="videos-grid">
+                <!-- Dynamically populated -->
+            </div>
+
+            <!-- Vertical Shorts/Reels Section (specifically formatted for 9:16) -->
+            <div class="vertical-section" id="vertical-section">
+                <h3 class="section-subtitle-tech">Vertical Content Shelf</h3>
+                <div class="vertical-grid" id="vertical-grid">
+                    <!-- Dynamically populated -->
                 </div>
             </div>
 
+            <!-- Editing Capabilities -->
             <div class="editing-capabilities">
                 <h3>Editing Capabilities</h3>
                 <div class="capabilities-grid">
@@ -115,6 +115,7 @@
                 </div>
             </div>
 
+            <!-- Software & Tools -->
             <div class="software-tools">
                 <h3>Software & Tools</h3>
                 <div class="tools-grid">
@@ -127,24 +128,502 @@
                 </div>
             </div>
 
+            <!-- CTA Section -->
             <div class="cta-section">
                 <h3>Interested in collaborating?</h3>
                 <p>Let's create something amazing together</p>
-                <a href="https://divyashlokk.my.canva.site/" target="_blank" class="cta-button-large">
-                    View Complete Portfolio
+                <a href="collaborate.html" class="cta-button-large">
+                    Let's Work Together
                 </a>
             </div>
         </div>
     </main>
 
+    <!-- Video Lightbox Modal -->
+    <div class="video-lightbox" id="video-lightbox">
+        <div class="lightbox-backdrop" onclick="closeLightbox()"></div>
+        <div class="lightbox-container">
+            <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close Player">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="lightbox-content">
+                <div class="lightbox-player-wrapper">
+                    <div class="video-tech-frame">
+                        <div class="video-wrapper">
+                            <iframe id="lightbox-iframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-corner-br"></div>
+                    </div>
+                </div>
+                
+                <div class="lightbox-details">
+                    <div class="lightbox-meta">
+                        <span class="lightbox-category" id="lightbox-category">COMMERCIAL</span>
+                        <span class="lightbox-duration" id="lightbox-duration">1:30</span>
+                    </div>
+                    <h2 class="lightbox-title" id="lightbox-title">Project Title</h2>
+                    <p class="lightbox-description" id="lightbox-description">Detailed description of the editing, storytelling, pacing, and visual techniques employed in this video.</p>
+                    
+                    <div class="lightbox-spec-grid">
+                        <div class="spec-item">
+                            <span class="spec-label">Role</span>
+                            <span class="spec-value" id="lightbox-role">Editor & Colorist</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Software</span>
+                            <span class="spec-value" id="lightbox-software">DaVinci Resolve, After Effects</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Client</span>
+                            <span class="spec-value" id="lightbox-client">Brand Company</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Lightbox Nav Buttons -->
+            <button class="lightbox-nav nav-prev" onclick="navigateLightbox(-1)" aria-label="Previous Video">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="lightbox-nav nav-next" onclick="navigateLightbox(1)" aria-label="Next Video">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Video Portfolio Script -->
     <script>
-        function removeOverlay() {
-            const overlay = document.querySelector('.embed-overlay');
-            overlay.style.opacity = '0';
-            overlay.style.pointerEvents = 'none';
+        async function fetchVideosFromSanity() {
+            // Check if Sanity Client library is loaded
+            if (typeof sanityClient === 'undefined') {
+                console.warn("Sanity Client library is not loaded. Using local mock data as fallback.");
+                renderPortfolio();
+                return;
+            }
+
+            // Check if Project ID is configured
+            if (!window.CONFIG || !CONFIG.SANITY_PROJECT_ID || CONFIG.SANITY_PROJECT_ID === 'your_project_id') {
+                console.warn("Sanity Project ID is not configured in config.js. Using local mock data as fallback.");
+                renderPortfolio();
+                return;
+            }
+
+            try {
+                // Initialize Sanity Client
+                const client = sanityClient({
+                    projectId: CONFIG.SANITY_PROJECT_ID,
+                    dataset: CONFIG.SANITY_DATASET || 'production',
+                    apiVersion: '2023-01-01',
+                    useCdn: true
+                });
+
+                // Fetch GROQ query mapping to our template schema
+                const query = `*[_type == "videoProject"] | order(orderAscending) {
+                    "id": _id,
+                    title,
+                    category,
+                    description,
+                    videoUrl,
+                    "thumbnail": thumbnail.asset->url,
+                    duration,
+                    role,
+                    software,
+                    client,
+                    isFeatured
+                }`;
+
+                const data = await client.fetch(query);
+                
+                if (data && data.length > 0) {
+                    // Overwrite mock data with Sanity data
+                    portfolioVideos.length = 0;
+                    portfolioVideos.push(...data);
+                    console.log("Successfully fetched videos from Sanity:", data);
+                } else {
+                    console.warn("Sanity returned 0 videos. Using local mock data as fallback.");
+                }
+            } catch (err) {
+                console.error("Failed to fetch from Sanity. Using local mock data fallback.", err);
+            }
+
+            // Render output
+            renderPortfolio();
+        }
+
+        // Local Mock Data representing Sanity document schema
+        const portfolioVideos = [
+            {
+                id: "v1",
+                title: "Cinematic Narrative & Storytelling Showreel",
+                category: "narrative",
+                description: "A compilation of storytelling and post-production work showcasing expert-level pacing, narrative structures, DaVinci Resolve color grading, and immersive soundscapes.",
+                videoUrl: "https://www.youtube.com/embed/ScMzIvxBSi4",
+                thumbnail: "https://img.youtube.com/vi/ScMzIvxBSi4/maxresdefault.jpg",
+                duration: "2:45",
+                role: "Lead Editor & Colorist",
+                software: ["DaVinci Resolve", "Adobe Premiere Pro", "After Effects"],
+                client: "Personal Work",
+                isFeatured: true
+            },
+            {
+                id: "v2",
+                title: "Elysian Clothing - Summer Fashion Campaign",
+                category: "commercial",
+                description: "A fast-paced, high-energy promotional launch video for Elysian Apparel. Focused on sharp cinematic styling, stylized light leaks, and tempo-matched edits.",
+                videoUrl: "https://www.youtube.com/embed/eYq7WapuDLU",
+                thumbnail: "https://img.youtube.com/vi/eYq7WapuDLU/maxresdefault.jpg",
+                duration: "0:45",
+                role: "Post-Production Supervisor",
+                software: ["Adobe Premiere Pro", "After Effects"],
+                client: "Elysian Apparel Ltd.",
+                isFeatured: false
+            },
+            {
+                id: "v3",
+                title: "Apex Tech Showcase - Product Launch Promo",
+                category: "commercial",
+                description: "Clean product showcase advertising compilation. Features tracking, smooth speed ramps, and tech-focused sound design to outline product features.",
+                videoUrl: "https://www.youtube.com/embed/tgbNymZ7vqY",
+                thumbnail: "https://img.youtube.com/vi/tgbNymZ7vqY/maxresdefault.jpg",
+                duration: "1:00",
+                role: "VFX Artist & Editor",
+                software: ["After Effects", "Premiere Pro"],
+                client: "Apex Tech Inc.",
+                isFeatured: false
+            },
+            {
+                id: "v4",
+                title: "Cyberpunk Streetwear - Vertical Cinematic Reel",
+                category: "vertical",
+                description: "Cinematic smartphone commercial optimized for social media vertical formats. Features kinetic transitions and glitches synced to glitch-hop music.",
+                videoUrl: "https://www.youtube.com/embed/3P-V6Xm0m9Y",
+                thumbnail: "https://img.youtube.com/vi/3P-V6Xm0m9Y/maxresdefault.jpg",
+                duration: "0:15",
+                role: "Mobile Format Specialist",
+                software: ["Premiere Pro", "CapCut Pro"],
+                client: "Neon Streetwear",
+                isFeatured: false
+            },
+            {
+                id: "v5",
+                title: "The Silent Forest - Ambient Film Project",
+                category: "narrative",
+                description: "An artistic film project exploring natural isolation. Heavy reliance on custom audio designs and color palettes to create a meditative environment.",
+                videoUrl: "https://www.youtube.com/embed/aqz-KE-BPKQ",
+                thumbnail: "https://img.youtube.com/vi/aqz-KE-BPKQ/maxresdefault.jpg",
+                duration: "5:12",
+                role: "Director of Editing & Sound",
+                software: ["DaVinci Resolve", "Adobe Audition"],
+                client: "Indie Film Showcase",
+                isFeatured: false
+            },
+            {
+                id: "v6",
+                title: "Pulse Fitness App - High Intensity Social Reel",
+                category: "vertical",
+                description: "A fast split-screen, bold-text-overlay vertical video styled for Instagram Reels. Designed to maximize watch-time and interaction rates.",
+                videoUrl: "https://www.youtube.com/embed/Hk3v5W2S87g",
+                thumbnail: "https://img.youtube.com/vi/Hk3v5W2S87g/maxresdefault.jpg",
+                duration: "0:30",
+                role: "Short-form Creator",
+                software: ["Premiere Pro", "After Effects"],
+                client: "Pulse Fitness",
+                isFeatured: false
+            },
+            {
+                id: "v7",
+                title: "Tokyo Explorations - Travel Vlog Edit",
+                category: "narrative",
+                description: "Visual editing for travel channel content. Focuses on speed ramping, aesthetic color grades, and fluid spatial matches to maintain audience retention.",
+                videoUrl: "https://www.youtube.com/embed/kX48Vl_V67E",
+                thumbnail: "https://img.youtube.com/vi/kX48Vl_V67E/maxresdefault.jpg",
+                duration: "8:20",
+                role: "Video Editor",
+                software: ["Adobe Premiere Pro", "Media Encoder"],
+                client: "Tokyo Trails",
+                isFeatured: false
+            }
+        ];
+
+        let activeFilter = 'all';
+        let filteredVideos = [];
+        let currentVideoIndex = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initPortfolio();
+        });
+
+        async function initPortfolio() {
+            // Category click listeners
+            const filters = document.querySelectorAll('.filter-btn');
+            filters.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    filters.forEach(b => b.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    activeFilter = e.currentTarget.getAttribute('data-filter');
+                    renderPortfolio();
+                });
+            });
+
+            // Bind card clicks using event delegation
+            document.getElementById('featured-video-spotlight').addEventListener('click', handleCardClick);
+            document.getElementById('videos-grid').addEventListener('click', handleCardClick);
+            document.getElementById('vertical-grid').addEventListener('click', handleCardClick);
+
+            // Fetch from Sanity and render
+            await fetchVideosFromSanity();
+        }
+
+        function handleCardClick(e) {
+            const card = e.target.closest('.video-card, .featured-video-card');
+            if (card) {
+                const videoId = card.getAttribute('data-id');
+                openLightbox(videoId);
+            }
+        }
+
+        function renderPortfolio() {
+            const spotlightContainer = document.getElementById('featured-video-spotlight');
+            const horizontalGrid = document.getElementById('videos-grid');
+            const verticalGrid = document.getElementById('vertical-grid');
+            const verticalSection = document.getElementById('vertical-section');
+
+            // Reset containers
+            spotlightContainer.innerHTML = '';
+            horizontalGrid.innerHTML = '';
+            verticalGrid.innerHTML = '';
+
+            // Filter videos based on selection
+            filteredVideos = portfolioVideos.filter(video => activeFilter === 'all' || video.category === activeFilter);
+
+            // Find featured video (if any in the current filter)
+            let featuredVideo = null;
+            if (activeFilter === 'all') {
+                featuredVideo = portfolioVideos.find(v => v.isFeatured);
+            } else {
+                featuredVideo = filteredVideos.find(v => v.isFeatured) || null;
+            }
+
+            // Render Featured Showcase
+            if (featuredVideo && activeFilter !== 'vertical') {
+                spotlightContainer.style.display = 'block';
+                spotlightContainer.innerHTML = `
+                    <div class="featured-video-card" data-id="${featuredVideo.id}">
+                        <div class="featured-grid-lines"></div>
+                        <div class="featured-thumb-side">
+                            <img src="${featuredVideo.thumbnail}" alt="${featuredVideo.title}" onerror="this.src='https://img.youtube.com/vi/${featuredVideo.videoUrl.split('/').pop()}/hqdefault.jpg'">
+                            <div class="play-overlay">
+                                <div class="play-button-icon-large">
+                                    <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                    </svg>
+                                </div>
+                                <span class="play-text-glow">PLAY SHOWREEL</span>
+                            </div>
+                            <div class="featured-badge-overlay">SPOTLIGHT WORK</div>
+                            <div class="video-duration">${featuredVideo.duration}</div>
+                        </div>
+                        <div class="featured-info-side">
+                            <div class="tech-header-specs">
+                                <span class="tech-spec-tag">FORMAT: 4K UHD</span>
+                                <span class="tech-spec-tag">FPS: 23.976</span>
+                                <span class="tech-spec-tag">RATIO: 16:9</span>
+                            </div>
+                            <span class="featured-tag-badge">${featuredVideo.category.toUpperCase()}</span>
+                            <h3 class="featured-title">${featuredVideo.title}</h3>
+                            <p class="featured-description">${featuredVideo.description}</p>
+                            
+                            <div class="featured-details-row">
+                                <div class="feat-detail-item">
+                                    <span class="feat-label">Role:</span>
+                                    <span class="feat-val">${featuredVideo.role}</span>
+                                </div>
+                                <div class="feat-detail-item">
+                                    <span class="feat-label">Client:</span>
+                                    <span class="feat-val">${featuredVideo.client}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="featured-software-list">
+                                <span class="feat-software-label">Tools:</span>
+                                <div class="feat-badges">
+                                    ${featuredVideo.software.map(sw => `<span class="sw-badge-tech">${sw}</span>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                setTimeout(() => spotlightContainer.classList.add('show'), 50);
+            } else {
+                spotlightContainer.style.display = 'none';
+                spotlightContainer.classList.remove('show');
+            }
+
+            // Populate Grid items
+            let hasHorizontal = false;
+            let hasVertical = false;
+
+            filteredVideos.forEach(video => {
+                // If it is featured and we are showing the featured block, skip duplicating it in grid
+                if (featuredVideo && video.id === featuredVideo.id && activeFilter !== 'vertical') {
+                    return;
+                }
+
+                if (video.category === 'vertical') {
+                    hasVertical = true;
+                    verticalGrid.innerHTML += `
+                        <div class="video-card vertical-card" data-id="${video.id}">
+                            <div class="video-card-thumb vertical-thumb">
+                                <img src="${video.thumbnail}" alt="${video.title}" onerror="this.src='https://img.youtube.com/vi/${video.videoUrl.split('/').pop()}/hqdefault.jpg'" loading="lazy">
+                                <div class="play-overlay">
+                                    <div class="play-button-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="video-duration">${video.duration}</div>
+                            </div>
+                            <div class="video-card-info">
+                                <div class="video-card-meta">
+                                    <span class="video-card-tag">9:16 REEL</span>
+                                    <span class="video-card-client">${video.client}</span>
+                                </div>
+                                <h4 class="video-card-title">${video.title}</h4>
+                                <div class="video-card-software" style="margin-top: 0.5rem;">
+                                    ${video.software.map(sw => `<span class="sw-badge">${sw}</span>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    hasHorizontal = true;
+                    horizontalGrid.innerHTML += `
+                        <div class="video-card" data-id="${video.id}">
+                            <div class="video-card-thumb">
+                                <img src="${video.thumbnail}" alt="${video.title}" onerror="this.src='https://img.youtube.com/vi/${video.videoUrl.split('/').pop()}/hqdefault.jpg'" loading="lazy">
+                                <div class="play-overlay">
+                                    <div class="play-button-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="video-duration">${video.duration}</div>
+                            </div>
+                            <div class="video-card-info">
+                                <div class="video-card-meta">
+                                    <span class="video-card-tag">${video.category.toUpperCase()}</span>
+                                    <span class="video-card-client">${video.client}</span>
+                                </div>
+                                <h4 class="video-card-title">${video.title}</h4>
+                                <p class="video-card-desc">${video.description}</p>
+                                <div class="video-card-software">
+                                    ${video.software.map(sw => `<span class="sw-badge">${sw}</span>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            // Toggle grids/headers depending on selections
+            horizontalGrid.style.display = hasHorizontal ? 'grid' : 'none';
+            
+            if (hasVertical && (activeFilter === 'all' || activeFilter === 'vertical')) {
+                verticalSection.style.display = 'block';
+                setTimeout(() => verticalSection.classList.add('show'), 50);
+            } else {
+                verticalSection.style.display = 'none';
+                verticalSection.classList.remove('show');
+            }
+
+            // Animate grid cards in using IntersectionObserver or timer
             setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 300);
+                const cards = document.querySelectorAll('.video-card');
+                cards.forEach((card, idx) => {
+                    setTimeout(() => {
+                        card.classList.add('show');
+                    }, idx * 60);
+                });
+            }, 100);
+        }
+
+        // Lightbox Functions
+        function openLightbox(videoId) {
+            const lightbox = document.getElementById('video-lightbox');
+            const iframe = document.getElementById('lightbox-iframe');
+            
+            // Set current index in filtered list
+            currentVideoIndex = filteredVideos.findIndex(v => v.id === videoId);
+            if (currentVideoIndex === -1) return;
+
+            const video = filteredVideos[currentVideoIndex];
+            
+            // Populate video source (append autoplay)
+            iframe.src = `${video.videoUrl}?autoplay=1&rel=0&showinfo=0&modestbranding=1`;
+
+            // Populate details
+            document.getElementById('lightbox-title').innerText = video.title;
+            document.getElementById('lightbox-category').innerText = video.category === 'vertical' ? 'SHORTS / REEL' : video.category.toUpperCase();
+            document.getElementById('lightbox-duration').innerText = video.duration;
+            document.getElementById('lightbox-description').innerText = video.description;
+            document.getElementById('lightbox-role').innerText = video.role;
+            document.getElementById('lightbox-client').innerText = video.client;
+            document.getElementById('lightbox-software').innerText = video.software.join(', ');
+
+            // Enable body lock
+            document.body.style.overflow = 'hidden';
+
+            // Show Lightbox
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('video-lightbox');
+            const iframe = document.getElementById('lightbox-iframe');
+            
+            // Stop Video playback
+            iframe.src = '';
+
+            // Disable body lock
+            document.body.style.overflow = '';
+
+            // Hide Lightbox
+            lightbox.classList.remove('active');
+        }
+
+        function navigateLightbox(direction) {
+            if (filteredVideos.length <= 1) return;
+
+            // Fade out video temporarily during transition
+            const iframe = document.getElementById('lightbox-iframe');
+            iframe.style.opacity = '0';
+            iframe.style.transition = 'opacity 0.2s';
+
+            setTimeout(() => {
+                currentVideoIndex = (currentVideoIndex + direction + filteredVideos.length) % filteredVideos.length;
+                const video = filteredVideos[currentVideoIndex];
+
+                iframe.src = `${video.videoUrl}?autoplay=1&rel=0&showinfo=0&modestbranding=1`;
+                document.getElementById('lightbox-title').innerText = video.title;
+                document.getElementById('lightbox-category').innerText = video.category === 'vertical' ? 'SHORTS / REEL' : video.category.toUpperCase();
+                document.getElementById('lightbox-duration').innerText = video.duration;
+                document.getElementById('lightbox-description').innerText = video.description;
+                document.getElementById('lightbox-role').innerText = video.role;
+                document.getElementById('lightbox-client').innerText = video.client;
+                document.getElementById('lightbox-software').innerText = video.software.join(', ');
+
+                iframe.style.opacity = '1';
+            }, 200);
         }
     </script>
 

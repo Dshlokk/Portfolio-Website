@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Camera Flash Effect on Click
     document.addEventListener('mousedown', (e) => {
-        if (e.target.closest('button, a, .skill-card, .website-card, .preview-btn')) {
+        if (e.target.closest('button, a, .skill-card, .website-card, .preview-btn, .video-card, .filter-btn, .lightbox-nav, .lightbox-close, .cta-button-large')) {
             flash.classList.remove('flash-active');
             void flash.offsetWidth; // Trigger reflow
             flash.classList.add('flash-active');
@@ -63,18 +63,25 @@ document.addEventListener('DOMContentLoaded', () => {
         cursor.style.transform = `translate(-50%, -50%) scale(1)`;
     });
 
-    // Hover Scaling for Cursor
-    const interactiveElements = document.querySelectorAll('button, a, .skill-card, .website-card, .preview-btn');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
+    // Hover Scaling for Cursor using Event Delegation
+    document.addEventListener('mouseover', (e) => {
+        const interactive = e.target.closest('button, a, .skill-card, .website-card, .preview-btn, .video-card, .filter-btn, .lightbox-nav, .lightbox-close, .cta-button-large');
+        if (interactive) {
             cursor.style.width = '60px';
             cursor.style.height = '60px';
-            cursor.style.transition = 'width 0.3s, height 0.3s';
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor.style.width = '40px';
-            cursor.style.height = '40px';
-        });
+            cursor.style.transition = 'width 0.15s ease, height 0.15s ease';
+        }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+        const interactive = e.target.closest('button, a, .skill-card, .website-card, .preview-btn, .video-card, .filter-btn, .lightbox-nav, .lightbox-close, .cta-button-large');
+        if (interactive) {
+            const leavingTo = e.relatedTarget;
+            if (!leavingTo || !interactive.contains(leavingTo)) {
+                cursor.style.width = '40px';
+                cursor.style.height = '40px';
+            }
+        }
     });
 
     const navToggle = document.querySelector('.nav-toggle');
