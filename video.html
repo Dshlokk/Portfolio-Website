@@ -314,6 +314,19 @@
                 isFeatured: false
             },
             {
+                id: "v_o2_realty",
+                title: "O2 Realty Commercial",
+                category: "commercial",
+                description: "A cinematic real estate commercial and promotional showcase for O2 Realty, capturing luxury living, modern architectural aesthetics, and ambient spaces through rhythmic editing and refined color grading.",
+                videoUrl: "https://drive.google.com/file/d/1c0H8MAJfVDO4610260C01tZLwaLjCYoq/preview",
+                thumbnail: "assets/o2-realty-thumb.jpg",
+                duration: "3:02",
+                role: "Video Editor & Colorist",
+                software: ["Adobe Premiere Pro", "DaVinci Resolve"],
+                client: "O2 Realty",
+                isFeatured: false
+            },
+            {
                 id: "v_7_192",
                 title: "Endeavor (Short Film)",
                 category: "commercial",
@@ -734,6 +747,29 @@
             });
         }
 
+        // Formats embed URLs for YouTube, Vimeo, Instagram Reels, and Google Drive
+        function getEmbedUrl(url) {
+            if (!url) return '';
+            // Handle Google Drive links (preview, view, or open?id=)
+            if (url.includes('drive.google.com')) {
+                const match = url.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]+)/);
+                if (match && match[1]) {
+                    return `https://drive.google.com/file/d/${match[1]}/preview`;
+                }
+                return url;
+            }
+            // Handle Instagram Reel links
+            if (url.includes('instagram.com/reel/')) {
+                const reelId = url.split('/reel/')[1].split('/')[0];
+                return `https://www.instagram.com/reel/${reelId}/embed`;
+            }
+            // Keep already-formatted embed or preview URLs
+            if (url.includes('/embed') || url.includes('/preview')) {
+                return url;
+            }
+            return `${url}?autoplay=1&rel=0&showinfo=0&modestbranding=1`;
+        }
+
         // Lightbox Functions supporting dual player (IFrame embeds and Native Video streams)
         function openLightbox(videoId) {
             const lightbox = document.getElementById('video-lightbox');
@@ -757,13 +793,7 @@
                 videoPlayer.src = '';
                 videoPlayer.pause();
                 iframe.style.display = 'block';
-                // Adjust for standard instagram/external player embed links if necessary
-                let embedUrl = video.videoUrl;
-                if (embedUrl.includes('instagram.com/reel/')) {
-                    const reelId = embedUrl.split('/reel/')[1].split('/')[0];
-                    embedUrl = `https://www.instagram.com/reel/${reelId}/embed`;
-                }
-                iframe.src = embedUrl.includes('/embed') ? embedUrl : `${embedUrl}?autoplay=1&rel=0&showinfo=0&modestbranding=1`;
+                iframe.src = getEmbedUrl(video.videoUrl);
             }
 
             // Populate details
@@ -826,12 +856,7 @@
                     videoPlayer.src = '';
                     videoPlayer.pause();
                     iframe.style.display = 'block';
-                    let embedUrl = video.videoUrl;
-                    if (embedUrl.includes('instagram.com/reel/')) {
-                        const reelId = embedUrl.split('/reel/')[1].split('/')[0];
-                        embedUrl = `https://www.instagram.com/reel/${reelId}/embed`;
-                    }
-                    iframe.src = embedUrl.includes('/embed') ? embedUrl : `${embedUrl}?autoplay=1&rel=0&showinfo=0&modestbranding=1`;
+                    iframe.src = getEmbedUrl(video.videoUrl);
                 }
 
                 document.getElementById('lightbox-title').innerText = video.title;
